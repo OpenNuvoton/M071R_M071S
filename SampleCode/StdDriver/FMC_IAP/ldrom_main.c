@@ -81,9 +81,6 @@ int main()
     /* Enable FMC ISP function */
     FMC_Open();
 
-    printf("\n\nPress any key to branch to APROM...\n");
-    getchar();
-
     printf("\n\nChange VECMAP and branch to LDROM...\n");
     UART_WAIT_TX_EMPTY(UART0);
 

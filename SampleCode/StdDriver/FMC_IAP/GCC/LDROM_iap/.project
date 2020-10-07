@@ -75,7 +75,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1539678405620</id>
+			<id>1602048101308</id>
 			<name>Library/Library</name>
 			<type>5</type>
 			<matcher>
@@ -84,12 +84,21 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1539678405670</id>
+			<id>1602048101323</id>
 			<name>Library/Library</name>
 			<type>5</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-false-clk.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1602048101346</id>
+			<name>Library/Library</name>
+			<type>5</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-uart.c</arguments>
 			</matcher>
 		</filter>
 	</filteredResources>
