@@ -25,6 +25,13 @@
 /* Global variables                                                                                        */
 /*---------------------------------------------------------------------------------------------------------*/
 #if !(defined(__ICCARM__) && (__VER__ >= 6010000))
+# if (__ARMCC_VERSION < 6040000)
+struct __FILE
+{
+    int handle; /* Add whatever you need here */
+};
+# endif
+#elif(__VER__ >= 8000000)
 struct __FILE
 {
     int handle; /* Add whatever you need here */
@@ -42,7 +49,7 @@ enum { r0, r1, r2, r3, r12, lr, pc, psr};
  * @details     This function is implement to print r0, r1, r2, r3, r12, lr, pc, psr
  */
 static void stackDump(uint32_t stack[])
-{   
+{
     printf("r0  = 0x%x\n", stack[r0]);
     printf("r1  = 0x%x\n", stack[r1]);
     printf("r2  = 0x%x\n", stack[r2]);
@@ -199,7 +206,7 @@ void SP_is_PSP(void)
     asm(
         "MRS     R0, PSP       \n"      //; stack use PSP, read PSP
         "B       Get_LR_and_Branch    \n"
-    
+
        );
 }
 
@@ -261,15 +268,15 @@ HardFault_Handler_Ret
     /* TODO: Implement your own hard fault handler here. */
     MOVS    r0, #4
     MOV     r1, LR
-    TST     r0, r1                          //; check LR bit 2  
+    TST     r0, r1                          //; check LR bit 2
     BEQ     Stack_Use_MSP                   //; stack use MSP
     MRS     R0, PSP ;stack use PSP          //; stack use PSP, read PSP
     B       Get_LR_and_Branch
 Stack_Use_MSP
     MRS     R0, MSP ; stack use MSP         //; read MSP
 Get_LR_and_Branch
-    MOV     R1, LR ; LR current value       //; LR current value       
-    LDR     R2,=__cpp(Hard_Fault_Handler)   //; branch to Hard_Fault_Handler 
+    MOV     R1, LR ; LR current value       //; LR current value
+    LDR     R2,=__cpp(Hard_Fault_Handler)   //; branch to Hard_Fault_Handler
     BX      R2
 
     B       .
@@ -398,9 +405,9 @@ void HardFault_Handler(void)
  */
 __asm int32_t HardFault_Handler(void)
 {
-    MOVS    r0, #4  
+    MOVS    r0, #4
     MOV     r1, LR
-    TST     r0, r1          //; check LR bit 2                 
+    TST     r0, r1          //; check LR bit 2
     BEQ     Stack_Use_MSP   //; stack use MSP
     MRS     R0, PSP         //; stack use PSP, read PSP
     B       Get_LR_and_Branch
@@ -408,7 +415,7 @@ Stack_Use_MSP
     MRS     R0, MSP         //; read MSP
 Get_LR_and_Branch
     MOV     R1, LR          //; LR current value
-    LDR     R2,=__cpp(Hard_Fault_Handler) //; branch to Hard_Fault_Handler 
+    LDR     R2,=__cpp(Hard_Fault_Handler) //; branch to Hard_Fault_Handler
     BX      R2
 }
 
@@ -612,7 +619,7 @@ int IsDebugFifoEmpty(void)
 /**
  * @brief    C library retargetting
  *
- * @param[in]   ch Character to send to debug port.  
+ * @param[in]   ch Character to send to debug port.
  *
  * @returns  None
  *
