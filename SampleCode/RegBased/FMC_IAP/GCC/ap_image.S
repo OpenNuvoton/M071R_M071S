@@ -11,13 +11,13 @@
 	.globl	loaderImageLimit
 
 	.align	4
- 
+
 	.text
-        
+
 loaderImageBase:
-    .incbin  "..\\..\\LDROM_iap\\LDROM_iap.bin"
+    .incbin  "../../LDROM_iap/LDROM_iap.bin"
 loaderImageLimit:
     .space   4
-    
+
     .end
-   
+
