@@ -1,5 +1,5 @@
 /**************************************************************************//**
- * @file     FMC_IAP.c
+ * @file     main.c
  * @version  V2.00
  * $Revision: 2 $
  * $Date: 15/04/15 11:51a $
@@ -57,11 +57,11 @@ void SYS_Init(void)
     CLK->CLKSEL0 |= CLK_CLKSEL0_HCLK_S_PLL;
 
     /* Update System Core Clock */
-    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CycylesPerUs automatically. */
+    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CyclesPerUs automatically. */
     //SystemCoreClockUpdate();
     PllClock        = PLL_CLOCK;            // PLL
     SystemCoreClock = PLL_CLOCK / 1;        // HCLK
-    CyclesPerUs     = PLL_CLOCK / 1000000;  // For SYS_SysTickDelay()
+    CyclesPerUs     = PLL_CLOCK / 1000000;  // For CLK_SysTickDelay()
 
     /* Enable UART module clock */
     CLK->APBCLK |= CLK_APBCLK_UART0_EN_Msk;
@@ -92,6 +92,9 @@ void UART0_Init(void)
     UART0->LCR = UART_WORD_LEN_8 | UART_PARITY_NONE | UART_STOP_BIT_1;
 }
 
+#if defined ( __ICCARM__ )
+#pragma optimize=low
+#endif
 void FMC_LDROM_Test(void)
 {
     int32_t  i32Err;
@@ -181,7 +184,7 @@ int32_t main(void)
     UART0_Init();
 
     printf("+---------------------------------------------------------------+\n");
-    printf("|                       M071R_M071S IAP Sample Code                 |\n");
+    printf("|                       M071R_M071S IAP Sample Code             |\n");
     printf("+---------------------------------------------------------------+\n");
 
     printf("\nCPU @ %dHz\n\n", SystemCoreClock);
@@ -214,7 +217,7 @@ int32_t main(void)
         }
     }
 
-    printf("Do you want to write LDROM code to 0x100000\n");
+    printf("Do you want to write LDROM code to 0x100000 y/n?\n");
 
     if(getchar() == 'y') {
         /* Check LD image size */
