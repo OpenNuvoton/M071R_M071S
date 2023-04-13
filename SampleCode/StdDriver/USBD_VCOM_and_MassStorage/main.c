@@ -25,8 +25,6 @@ uint16_t gCtrlSignal = 0;     /* BIT0: DTR(Data Terminal Ready) , BIT1: RTS(Requ
 #define RXBUFSIZE           512 /* RX buffer size */
 #define TXBUFSIZE           512 /* RX buffer size */
 
-#define TX_FIFO_SIZE        64  /* TX Hardware FIFO size */
-
 #define CONFIG_BASE      0x00300000
 #define DATA_FLASH_BASE  MASS_STORAGE_OFFSET
 
@@ -190,13 +188,13 @@ void UART02_IRQHandler(void)
     if(u32IntStatus & UART_ISR_THRE_IF_Msk)
     {
 
-        if(comTbytes)
+        if(comTbytes && (UART0->IER & UART_IER_THRE_IEN_Msk))
         {
             /* Fill the Tx FIFO */
             size = comTbytes;
-            if(size >= TX_FIFO_SIZE)
+            if(size >= UART0_FIFO_SIZE)
             {
-                size = TX_FIFO_SIZE;
+                size = UART0_FIFO_SIZE;
             }
 
             while(size)
@@ -289,9 +287,7 @@ void VCOM_TransferData(void)
             if(comThead >= TXBUFSIZE)
                 comThead = 0;
 
-            __set_PRIMASK(1);
             comTbytes--;
-            __set_PRIMASK(0);
 
             /* Enable Tx Empty Interrupt. (Trigger first one) */
             UART0->IER |= UART_IER_THRE_IEN_Msk;

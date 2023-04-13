@@ -11,11 +11,11 @@
 #include "NuMicro.h"
 
 
-/** @addtogroup NUC2201_Library M071R_M071S Library
+/** @addtogroup M071R_M071S_Library M071R_M071S Library
   @{
 */
 
-/** @addtogroup NUC2201_SDCARD SDCARD Library
+/** @addtogroup M071R_M071S_SDCARD SDCARD Library
   @{
 */
 
@@ -68,7 +68,7 @@ COMMAND __I command_list[] =
     {0x80 + 41, YES, 0xFF, CMD, R1 , NO } // ACMD41; SD_SEND_OP_COND: initialize card;
 };
 /// @endcond HIDDEN_SYMBOLS
-/** @addtogroup NUC2201_SDCARD_EXPORTED_FUNCTIONS SDCARD Library Exported Functions
+/** @addtogroup M071R_M071S_SDCARD_EXPORTED_FUNCTIONS SDCARD Library Exported Functions
   @{
 */
 
@@ -722,10 +722,10 @@ void SpiWrite(uint32_t addr, uint32_t size, uint8_t* buffer)
         }
     }
 }
-/*@}*/ /* end of group NUC2201_SDCARD_EXPORTED_FUNCTIONS */
+/*@}*/ /* end of group M071R_M071S_SDCARD_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group NUC2201_SDCARD_Driver */
+/*@}*/ /* end of group M071R_M071S_SDCARD_Driver */
 
-/*@}*/ /* end of group NUC2201_Library */
+/*@}*/ /* end of group M071R_M071S_Library */
 
 /*** (C) COPYRIGHT 2019 Nuvoton Technology Corp. ***/

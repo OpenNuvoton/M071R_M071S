@@ -17,15 +17,15 @@ extern "C"
 {
 #endif
 
-/** @addtogroup NUC2201_Library M071R_M071S Library
+/** @addtogroup M071R_M071S_Library M071R_M071S Library
   @{
 */
 
-/** @addtogroup NUC2201_SDCARD SDCARD Library
+/** @addtogroup M071R_M071S_SDCARD SDCARD Library
   @{
 */
 
-/** @addtogroup NUC2201_SDCARD_EXPORTED_CONSTANTS SDCARD Library Exported Constants
+/** @addtogroup M071R_M071S_SDCARD_EXPORTED_CONSTANTS SDCARD Library Exported Constants
   @{
 */
 
@@ -126,9 +126,9 @@ typedef union                          // byte-addressable unsigned int
 #define     SD_SEND_STATUS              28/*!<ACMD13*/
 #define     SD_SET_WR_BLK_ERASE_COUNT   29/*!<ACMD23*/
 #define     SD_SEND_OP_COND             30/*!<ACMD41*/
-/*@}*/ /* end of group NUC2201_SDCARD_EXPORTED_CONSTANTS */
+/*@}*/ /* end of group M071R_M071S_SDCARD_EXPORTED_CONSTANTS */
 
-/** @addtogroup NUC2201_SDCARD_EXPORTED_STRUCTS SDCARD Library Exported Structs
+/** @addtogroup M071R_M071S_SDCARD_EXPORTED_STRUCTS SDCARD Library Exported Structs
   @{
 */
 // This structure defines entries into the command table;
@@ -141,9 +141,9 @@ typedef struct
     uint8_t response;          /*!< Indicates expected response;*/
     uint8_t var_length;        /*!< Indicates varialble length transfer;*/
 } COMMAND;
-/*@}*/ /* end of group NUC2201_SDCARD_EXPORTED_STRUCTS */
+/*@}*/ /* end of group M071R_M071S_SDCARD_EXPORTED_STRUCTS */
 
-/** @addtogroup NUC2201_SDCARD_EXPORTED_FUNCTIONS SDCARD Library Exported Functions
+/** @addtogroup M071R_M071S_SDCARD_EXPORTED_FUNCTIONS SDCARD Library Exported Functions
   @{
 */
 uint32_t SDCARD_Open(void);
@@ -155,12 +155,12 @@ uint32_t SDCARD_GetCardSize(uint32_t* pu32TotSecCnt);
 void SpiRead(uint32_t addr, uint32_t size, uint8_t* buffer);
 void SpiWrite(uint32_t addr, uint32_t size, uint8_t* buffer);
 
-/*@}*/ /* end of group NUC2201_SDCARD_EXPORTED_FUNCTIONS */
+/*@}*/ /* end of group M071R_M071S_SDCARD_EXPORTED_FUNCTIONS */
 
 
-/*@}*/ /* end of group NUC2201_SDCARD */
+/*@}*/ /* end of group M071R_M071S_SDCARD */
 
-/*@}*/ /* end of group NUC2201_Library */
+/*@}*/ /* end of group M071R_M071S_Library */
 
 #ifdef __cplusplus
 }

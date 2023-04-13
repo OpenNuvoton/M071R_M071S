@@ -25,9 +25,6 @@ uint16_t gCtrlSignal1 = 0;     /* BIT0: DTR(Data Terminal Ready) , BIT1: RTS(Req
 #define RXBUFSIZE           512 /* RX buffer size */
 #define TXBUFSIZE           512 /* RX buffer size */
 
-#define TX_FIFO_SIZE_0      64  /* TX Hardware FIFO size */
-#define TX_FIFO_SIZE_1      64  /* TX Hardware FIFO size */
-
 /*---------------------------------------------------------------------------------------------------------*/
 /* Global variables                                                                                        */
 /*---------------------------------------------------------------------------------------------------------*/
@@ -66,7 +63,6 @@ volatile uint32_t gu32RxSize1 = 0;
 volatile uint32_t gu32TxSize1 = 0;
 
 volatile int8_t gi8BulkOutReady1 = 0;
-
 
 /*--------------------------------------------------------------------------*/
 
@@ -226,13 +222,13 @@ void UART02_IRQHandler(void)
     if(u32IntStatus & UART_ISR_THRE_IF_Msk)
     {
 
-        if(comTbytes0)
+        if(comTbytes0 && (UART0->IER & UART_IER_THRE_IEN_Msk))
         {
             /* Fill the Tx FIFO */
             size = comTbytes0;
-            if(size >= TX_FIFO_SIZE_0)
+            if(size >= UART0_FIFO_SIZE)
             {
-                size = TX_FIFO_SIZE_0;
+                size = UART0_FIFO_SIZE;
             }
 
             while(size)
@@ -291,13 +287,13 @@ void UART1_IRQHandler(void)
     if(u32IntStatus & UART_ISR_THRE_IF_Msk)
     {
 
-        if(comTbytes1)
+        if(comTbytes1 && (UART1->IER & UART_IER_THRE_IEN_Msk))
         {
             /* Fill the Tx FIFO */
             size = comTbytes1;
-            if(size >= TX_FIFO_SIZE_1)
+            if(size >= UART1_FIFO_SIZE)
             {
-                size = TX_FIFO_SIZE_1;
+                size = UART1_FIFO_SIZE;
             }
 
             while(size)
@@ -444,9 +440,7 @@ void VCOM_TransferData(void)
             if(comThead0 >= TXBUFSIZE)
                 comThead0 = 0;
 
-            __set_PRIMASK(1);
             comTbytes0--;
-            __set_PRIMASK(0);
 
             /* Enable Tx Empty Interrupt. (Trigger first one) */
             UART0->IER |= UART_IER_THRE_IEN_Msk;
@@ -463,9 +457,7 @@ void VCOM_TransferData(void)
             if(comThead1 >= TXBUFSIZE)
                 comThead1 = 0;
 
-            __set_PRIMASK(1);
             comTbytes1--;
-            __set_PRIMASK(0);
 
             /* Enable Tx Empty Interrupt. (Trigger first one) */
             UART1->IER |= UART_IER_THRE_IEN_Msk;
