@@ -144,10 +144,10 @@ int main()
     UART_Init();
 
     printf("\n\n");
-    printf("+----------------------------------------+\n");
+    printf("+--------------------------------------------+\n");
     printf("|      M071R_M071S FMC IAP Sample Code       |\n");
-    printf("|           [APROM code]                 |\n");
-    printf("+----------------------------------------+\n");
+    printf("|           [APROM code]                     |\n");
+    printf("+--------------------------------------------+\n");
 
 
     /* Enable FMC ISP function */

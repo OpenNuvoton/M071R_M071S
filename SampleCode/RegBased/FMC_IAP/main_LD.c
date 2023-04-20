@@ -1,5 +1,5 @@
 /**************************************************************************//**
- * @file     Smpl_DrvFMC_SimpleLD.c
+ * @file     main_LD.c
  * @version  V2.00
  * $Revision: 2 $
  * $Date: 15/04/15 11:51a $
@@ -34,9 +34,17 @@ __root const uint32_t g_funcTable[4] = {
     (uint32_t)IAP_Func0, (uint32_t)IAP_Func1, (uint32_t)IAP_Func2, (uint32_t)IAP_Func3
 } ;
 #else
-__attribute__((at(FUN_TBL_BASE))) const uint32_t g_funcTable[4] = {
+#if (defined(__GNUC__) && !defined(__ARMCC_VERSION))
+const uint32_t __attribute__((section (".IAPFunTable"))) g_funcTable[4] =
+{
     (uint32_t)IAP_Func0, (uint32_t)IAP_Func1, (uint32_t)IAP_Func2, (uint32_t)IAP_Func3
 };
+#else
+const uint32_t * __attribute__((section(".ARM.__at_0x00100E00"))) g_funcTable[4] =
+{
+    (uint32_t *)IAP_Func0, (uint32_t *)IAP_Func1, (uint32_t *)IAP_Func2, (uint32_t *)IAP_Func3
+};
+#endif
 #endif
 
 
@@ -81,11 +89,11 @@ void SYS_Init(void)
     CLK->CLKSEL0 |= CLK_CLKSEL0_HCLK_S_PLL;
 
     /* Update System Core Clock */
-    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CycylesPerUs automatically. */
+    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CyclesPerUs automatically. */
     //SystemCoreClockUpdate();
     PllClock        = PLL_CLOCK;            // PLL
     SystemCoreClock = PLL_CLOCK / 1;        // HCLK
-    CyclesPerUs     = PLL_CLOCK / 1000000;  // For SYS_SysTickDelay()
+    CyclesPerUs     = PLL_CLOCK / 1000000;  // For CLK_SysTickDelay()
 
     /* Enable UART module clock */
     CLK->APBCLK |= CLK_APBCLK_UART0_EN_Msk;
@@ -178,9 +186,9 @@ int32_t main(void)
         The base address for function table is defined by FUN_TBL_BASE.
     */
 
-    printf("+------------------------------------------------------------------+\n");
+    printf("+------------------------------------------------------------------------+\n");
     printf("|    M071R_M071S Flash Memory Controller Driver Sample Code for LDROM    |\n");
-    printf("+------------------------------------------------------------------+\n");
+    printf("+------------------------------------------------------------------------+\n");
 
     printf("\nCPU @ %dHz\n\n", SystemCoreClock);
 
