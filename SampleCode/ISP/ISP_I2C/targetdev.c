@@ -9,7 +9,7 @@
 #include "targetdev.h"
 #include "isp_user.h"
 
-__align(4) uint8_t usb_rcvbuf[64];
+__attribute__((aligned(4))) uint8_t usb_rcvbuf[64];
 uint8_t bUsbDataReady;
 
 uint32_t GetApromSize()

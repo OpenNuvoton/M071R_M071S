@@ -11,7 +11,7 @@
 #include "isp_user.h"
 
 
-extern __align(4) uint8_t response_buff[64];
+extern __attribute__((aligned(4))) uint8_t response_buff[64];
 
 
 /* rename for uart_transfer.c */

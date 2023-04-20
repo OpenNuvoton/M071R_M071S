@@ -154,7 +154,7 @@ void ADC_PWMTrigTest_SingleOpMode()
     /* Clear the ADC interrupt flag */
     ADC_CLR_INT_FLAG(ADC, ADC_ADF_INT);
 
-    printf("Channel 2: 0x%X\n", ADC_GET_CONVERSION_DATA(ADC, 2));
+    printf("Channel 2: 0x%X\n", (unsigned int)ADC_GET_CONVERSION_DATA(ADC, 2));
 
     /* Disable ADC */
     ADC_POWER_DOWN(ADC);
@@ -170,7 +170,7 @@ void ADC_PWMTrigTest_SingleOpMode()
 /*---------------------------------------------------------------------------------------------------------*/
 /* MAIN function                                                                                           */
 /*---------------------------------------------------------------------------------------------------------*/
-main(void)
+int main(void)
 {
 
     /* Unlock protected registers */
