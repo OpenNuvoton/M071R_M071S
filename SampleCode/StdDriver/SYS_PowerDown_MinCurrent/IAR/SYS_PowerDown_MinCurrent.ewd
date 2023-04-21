@@ -76,7 +76,7 @@
                 </option>
                 <option>
                     <name>OCDownloadVerifyAll</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>OCProductVersion</name>
@@ -84,7 +84,7 @@
                 </option>
                 <option>
                     <name>OCDynDriverList</name>
-                    <state>ARMSIM_ID</state>
+                    <state>THIRDPARTY_ID</state>
                 </option>
                 <option>
                     <name>OCLastSavedByProductVersion</name>
@@ -1136,7 +1136,7 @@
                 <debug>0</debug>
                 <option>
                     <name>CThirdPartyDriverDll</name>
-                    <state>###Uninitialized###</state>
+                    <state>$TOOLKIT_DIR$\..\..\..\Nuvoton Tools\Nu-Link_IAR\Nu-Link_IAR.dll</state>
                 </option>
                 <option>
                     <name>CThirdPartyLogFileCheck</name>

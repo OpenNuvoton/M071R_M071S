@@ -8,7 +8,7 @@
       <name>ARM</name>
     </toolchain>
     <debug>0</debug>
-
+    <settings>
       <name>C-SPY</name>
       <archiveVersion>2</archiveVersion>
       <data>
@@ -45,7 +45,7 @@
         </option>
         <option>
           <name>MemFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\debugger\Nuvoton\ionuc200ae.ddf</state>
+          <state>$TOOLKIT_DIR$\CONFIG\debugger\Nuvoton\iom071r_s.ddf</state>
         </option>
         <option>
           <name>RunToEnable</name>
@@ -81,7 +81,7 @@
         </option>
         <option>
           <name>OCProductVersion</name>
-          <state>5.41.2.51798</state>
+          <state>6.50.3.4744</state>
         </option>
         <option>
           <name>OCDynDriverList</name>
@@ -89,7 +89,7 @@
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
-          <state>6.50.2.4581</state>
+          <state>6.50.3.4744</state>
         </option>
         <option>
           <name>OCDownloadAttachToProgram</name>
@@ -117,7 +117,7 @@
         </option>
         <option>
           <name>FlashLoadersV3</name>
-          <state>$TOOLKIT_DIR$\config\flashloader\Nuvoton\NUC200_LDROM_4K.board</state>
+          <state>$TOOLKIT_DIR$\config\flashloader\Nuvoton\M071R_S_APROM.board</state>
         </option>
         <option>
           <name>OCImagesSuppressCheck1</name>
@@ -145,7 +145,7 @@
         </option>
         <option>
           <name>OverrideDefFlashBoard</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>OCImagesOffset1</name>
@@ -185,7 +185,7 @@
         </option>
       </data>
     </settings>
-
+    <settings>
       <name>ARMSIM_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
@@ -210,7 +210,7 @@
         </option>
       </data>
     </settings>
-
+    <settings>
       <name>ANGEL_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
@@ -253,7 +253,154 @@
         </option>
       </data>
     </settings>
-
+    <settings>
+      <name>CMSISDAP_ID</name>
+      <archiveVersion>2</archiveVersion>
+      <data>
+        <version>0</version>
+        <wantNonLocal>1</wantNonLocal>
+        <debug>0</debug>
+        <option>
+          <name>OCDriverInfo</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>CMSISDAPAttachSlave</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>OCIarProbeScriptFile</name>
+          <state>1</state>
+        </option>
+        <option>
+          <name>CMSISDAPResetList</name>
+          <version>1</version>
+          <state>10</state>
+        </option>
+        <option>
+          <name>CMSISDAPHWResetDuration</name>
+          <state>300</state>
+        </option>
+        <option>
+          <name>CMSISDAPHWResetDelay</name>
+          <state>200</state>
+        </option>
+        <option>
+          <name>CMSISDAPDoLogfile</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CMSISDAPLogFile</name>
+          <state>$PROJ_DIR$\cspycomm.log</state>
+        </option>
+        <option>
+          <name>CMSISDAPInterfaceRadio</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CMSISDAPInterfaceCmdLine</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CMSISDAPMultiTargetEnable</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CMSISDAPMultiTarget</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CMSISDAPJtagSpeedList</name>
+          <version>0</version>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CMSISDAPBreakpointRadio</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CMSISDAPRestoreBreakpointsCheck</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CMSISDAPUpdateBreakpointsEdit</name>
+          <state>_call_main</state>
+        </option>
+        <option>
+          <name>RDICatchReset</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>RDICatchUndef</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>RDICatchSWI</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>RDICatchData</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>RDICatchPrefetch</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>RDICatchIRQ</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>RDICatchFIQ</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CatchCORERESET</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CatchMMERR</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CatchNOCPERR</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CatchCHKERR</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CatchSTATERR</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CatchBUSERR</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CatchINTERR</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CatchHARDERR</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CatchDummy</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CMSISDAPMultiCPUEnable</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CMSISDAPMultiCPUNumber</name>
+          <state>0</state>
+        </option>
+      </data>
+    </settings>
+    <settings>
       <name>GDBSERVER_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
@@ -290,7 +437,7 @@
         </option>
       </data>
     </settings>
-
+    <settings>
       <name>IARROM_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
@@ -321,7 +468,7 @@
         </option>
       </data>
     </settings>
-
+    <settings>
       <name>IJET_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
@@ -433,7 +580,7 @@
         </option>
         <option>
           <name>RDICatchUndef</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>RDICatchSWI</name>
@@ -441,11 +588,11 @@
         </option>
         <option>
           <name>RDICatchData</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>RDICatchPrefetch</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>RDICatchIRQ</name>
@@ -461,31 +608,31 @@
         </option>
         <option>
           <name>CatchMMERR</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CatchNOCPERR</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CatchCHKERR</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CatchSTATERR</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CatchBUSERR</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CatchINTERR</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CatchHARDERR</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CatchDummy</name>
@@ -521,7 +668,7 @@
         </option>
       </data>
     </settings>
-
+    <settings>
       <name>JLINK_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
@@ -623,7 +770,7 @@
         </option>
         <option>
           <name>CCJLinkUpdateBreakpoints</name>
-          <state>main</state>
+          <state>_call_main</state>
         </option>
         <option>
           <name>CCJLinkInterfaceRadio</name>
@@ -721,7 +868,7 @@
         </option>
       </data>
     </settings>
-
+    <settings>
       <name>LMIFTDI_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
@@ -754,7 +901,7 @@
         </option>
       </data>
     </settings>
-
+    <settings>
       <name>MACRAIGOR_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
@@ -843,7 +990,7 @@
         </option>
       </data>
     </settings>
-
+    <settings>
       <name>PEMICRO_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
@@ -915,7 +1062,7 @@
         </option>
       </data>
     </settings>
-
+    <settings>
       <name>RDI_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
@@ -972,7 +1119,7 @@
         </option>
       </data>
     </settings>
-
+    <settings>
       <name>STLINK_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
@@ -980,16 +1127,16 @@
         <wantNonLocal>1</wantNonLocal>
         <debug>0</debug>
         <option>
+          <name>OCDriverInfo</name>
+          <state>1</state>
+        </option>
+        <option>
           <name>CCSTLinkInterfaceRadio</name>
           <state>0</state>
         </option>
         <option>
           <name>CCSTLinkInterfaceCmdLine</name>
           <state>0</state>
-        </option>
-        <option>
-          <name>OCDriverInfo</name>
-          <state>1</state>
         </option>
         <option>
           <name>CCSTLinkResetList</name>
@@ -1010,7 +1157,7 @@
         </option>
       </data>
     </settings>
-
+    <settings>
       <name>THIRDPARTY_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
@@ -1035,7 +1182,7 @@
         </option>
       </data>
     </settings>
-
+    <settings>
       <name>XDS100_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
