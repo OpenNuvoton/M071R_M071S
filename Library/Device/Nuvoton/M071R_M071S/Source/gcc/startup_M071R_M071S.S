@@ -1,5 +1,5 @@
 /****************************************************************************//**
- * @file     startup_NUC126.S
+ * @file     startup_M071R_M071S.S
  * @version  V1.00
  * @brief    CMSIS Device Startup File
  *
@@ -10,7 +10,7 @@
 
 
     .syntax unified
-    .arch   armv8 - m.base
+    .arch   armv6-m
     
     .section .stack
     .align  3
@@ -255,6 +255,33 @@ Reset_Handler:
     
     .align  1
     .thumb_func
+    .weak   HardFault_Handler
+    .type   HardFault_Handler, % function
+
+ HardFault_Handler:
+
+    MOV     R0, LR
+    MRS     R1, MSP
+    MRS     R2, PSP
+    LDR     R3, =ProcessHardFault
+    BLX     R3
+    BX      R0
+
+    .size   HardFault_Handler, . - HardFault_Handler
+
+    .align  1
+    .thumb_func
+    .weak   ProcessHardFaultx
+    .type   ProcessHardFaultx, % function
+
+ ProcessHardFaultx:
+    B       .
+
+    .size   ProcessHardFaultx, . - ProcessHardFaultx
+
+
+    .align  1
+    .thumb_func
     .weak   Default_Handler
     .type   Default_Handler, % function
     
@@ -272,7 +299,7 @@ Default_Handler:
     .endm
     
     def_irq_handler NMI_Handler
-    def_irq_handler HardFault_Handler
+    //def_irq_handler HardFault_Handler
     def_irq_handler SVC_Handler
     def_irq_handler PendSV_Handler
     def_irq_handler SysTick_Handler

@@ -68,3 +68,11 @@ void SystemCoreClockUpdate(void)             /* Get Core Clock Frequency      */
 void SystemInit(void)
 {
 }
+
+
+#if defined( __ICCARM__ )
+__WEAK
+#else
+__attribute__((weak))
+#endif
+uint32_t ProcessHardFault(uint32_t lr, uint32_t msp, uint32_t psp) {return 0;}
