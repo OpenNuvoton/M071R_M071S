@@ -13,6 +13,9 @@
 #define PLLCON_SETTING  CLK_PLLCON_72MHz_HIRC
 #define PLL_CLOCK       71884880
 
+void ProcessHardFault(void){}
+void SH_Return(void){}
+
 uint32_t TIMER_Open(TIMER_T *timer, uint32_t u32Mode, uint32_t u32Freq)
 {
     uint32_t u32Clk = __HIRC; // TIMER_GetModuleClock(timer);

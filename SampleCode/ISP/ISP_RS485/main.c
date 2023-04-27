@@ -21,6 +21,14 @@
 #define REVEIVE_MODE            (0)
 #define TRANSMIT_MODE           (1)
 
+/*---------------------------------------------------------------------------------------------------------*/
+/* Define functions prototype                                                                              */
+/*---------------------------------------------------------------------------------------------------------*/
+void ProcessHardFault(void);
+void SH_Return(void);
+
+void ProcessHardFault(void){}
+void SH_Return(void){}
 
 void SYS_Init(void)
 {

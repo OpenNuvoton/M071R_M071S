@@ -17,6 +17,14 @@
 #define PLLCON_SETTING  CLK_PLLCON_72MHz_HIRC
 #define PLL_CLOCK       71884880
 
+/*---------------------------------------------------------------------------------------------------------*/
+/* Define functions prototype                                                                              */
+/*---------------------------------------------------------------------------------------------------------*/
+void ProcessHardFault(void);
+void SH_Return(void);
+
+void ProcessHardFault(void){}
+void SH_Return(void){}
 
 void SYS_Init(void)
 {

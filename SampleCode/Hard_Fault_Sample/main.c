@@ -49,8 +49,6 @@
 
 #if USE_MY_HARDFAULT
 
-#define xPSR_ISR_Msk   (0x1FFUL)
-
 /**
   * @brief      User defined hard fault handler
   * @param      stack   A pointer to current stack

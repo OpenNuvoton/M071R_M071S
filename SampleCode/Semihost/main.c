@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include "NuMicro.h"
 
-# if defined (__GNUC__)
+#if (defined (__GNUC__) && (!(defined(__ARMCC_VERSION))))
     extern void initialise_monitor_handles(void);
 #endif
 
