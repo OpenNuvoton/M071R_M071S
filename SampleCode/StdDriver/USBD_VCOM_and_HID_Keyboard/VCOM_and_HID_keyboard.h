@@ -30,6 +30,15 @@
 #define HID_RPT_TYPE_OUTPUT     0x02
 #define HID_RPT_TYPE_FEATURE    0x03
 
+/*!<USB HID Keyboard Output Report */
+#define HID_LED_NumLock         0x01
+#define HID_LED_CapsLock        0x02
+#define HID_LED_ScrollLock      0x04
+#define HID_LED_Compose         0x08
+#define HID_LED_Kana            0x10
+#define HID_LED_Constatnt       0xE0
+#define HID_LED_ALL             0xFF
+
 /*!<Define CDC Class Specific Request */
 #define SET_LINE_CODE           0x20
 #define GET_LINE_CODE           0x21
@@ -67,7 +76,7 @@
 #define INT_IN_EP_NUM_1       0x04
 
 /* Define Descriptor information */
-#define HID_DEFAULT_INT_IN_INTERVAL     1
+#define HID_DEFAULT_INT_IN_INTERVAL     10
 #define USBD_SELF_POWERED               0
 #define USBD_REMOTE_WAKEUP              0
 #define USBD_MAX_POWER                  50  /* The unit is in 2mA. ex: 50 * 2mA = 100mA */
@@ -100,6 +109,7 @@ extern volatile uint16_t comTtail;
 extern volatile uint8_t *gpu8RxBuf;
 extern volatile uint32_t gu32RxSize;
 extern volatile uint32_t gu32TxSize;
+extern uint8_t volatile g_u8Suspend;
 
 /*-------------------------------------------------------------*/
 

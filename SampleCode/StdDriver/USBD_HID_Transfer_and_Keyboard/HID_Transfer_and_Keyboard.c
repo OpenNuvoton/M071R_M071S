@@ -14,6 +14,10 @@
 
 uint8_t volatile g_u8EP2Ready = 0;
 uint8_t volatile g_u8EP4Ready = 0;
+uint8_t volatile g_u8Suspend = 0;
+uint8_t g_u8Idle = 0, g_u8Protocol = 0;
+static uint8_t s_au8LEDStatus[8];
+static uint32_t s_u32LEDStatus = 0;
 
 void USBD_IRQHandler(void)
 {
@@ -56,9 +60,13 @@ void USBD_IRQHandler(void)
             /* Bus reset */
             USBD_ENABLE_USB();
             USBD_SwReset();
+            g_u8Suspend = 0;
         }
         if(u32State & USBD_STATE_SUSPEND)
         {
+            /* Enter power down to wait USB attached */
+            g_u8Suspend = 1;
+
             /* Enable USB but disable PHY */
             USBD_DISABLE_PHY();
         }
@@ -66,6 +74,7 @@ void USBD_IRQHandler(void)
         {
             /* Enable USB and enable PHY */
             USBD_ENABLE_USB();
+            g_u8Suspend = 0;
         }
     }
 
@@ -206,7 +215,7 @@ void HID_Init(void)
     USBD_SET_PAYLOAD_LEN(EP3, EP3_MAX_PKT_SIZE);
 
     /*****************************************************/
-    /* EP4 ==> Bulk IN endpoint, address 3 */
+    /* EP4 ==> Interrupt IN endpoint, address 3 */
     USBD_CONFIG_EP(EP4, USBD_CFG_EPMODE_IN | HID_KB_EP_NUM);
     /* Buffer range for EP4 */
     USBD_SET_EP_BUF_ADDR(EP4, EP4_BUF_BASE);
@@ -225,21 +234,32 @@ void HID_ClassRequest(void)
         switch(buf[1])
         {
             case GET_REPORT:
-//             {
-//                 break;
-//             }
-            case GET_IDLE:
-//             {
-//                 break;
-//             }
-            case GET_PROTOCOL:
 //            {
 //                break;
 //            }
+            case GET_IDLE:
+            {
+                USBD_SET_PAYLOAD_LEN(EP1, buf[6]);
+                /* Data stage */
+                USBD_PrepareCtrlIn(&g_u8Idle, buf[6]);
+                /* Status stage */
+                USBD_PrepareCtrlOut(0, 0);
+                break;
+            }
+            case GET_PROTOCOL:
+            {
+                USBD_SET_PAYLOAD_LEN(EP1, buf[6]);
+                /* Data stage */
+                USBD_PrepareCtrlIn(&g_u8Protocol, buf[6]);
+                /* Status stage */
+                USBD_PrepareCtrlOut(0, 0);
+                break;
+            }
             default:
             {
                 /* Setup error, stall the device */
-                USBD_SetStall(0);
+                USBD_SetStall(EP0);
+                USBD_SetStall(EP1);
                 break;
             }
         }
@@ -261,7 +281,8 @@ void HID_ClassRequest(void)
                 {
                     /* Request Type = Output */
                     USBD_SET_DATA1(EP1);
-                    USBD_SET_PAYLOAD_LEN(EP1, buf[6]);
+                    /* Data stage */
+                    USBD_PrepareCtrlOut(s_au8LEDStatus, buf[6]);
 
                     /* Trigger for HID Int in */
                     USBD_SET_PAYLOAD_LEN(EP4, 0);
@@ -273,6 +294,7 @@ void HID_ClassRequest(void)
             }
             case SET_IDLE:
             {
+                g_u8Idle = buf[3];
                 /* Status stage */
                 USBD_SET_DATA1(EP0);
                 USBD_SET_PAYLOAD_LEN(EP0, 0);
@@ -280,6 +302,8 @@ void HID_ClassRequest(void)
             }
             case SET_PROTOCOL:
             {
+                g_u8Protocol = buf[2];
+                /* Status stage */
                 USBD_SET_DATA1(EP0);
                 USBD_SET_PAYLOAD_LEN(EP0, 0);
                 break;
@@ -288,7 +312,8 @@ void HID_ClassRequest(void)
             {
                 // Stall
                 /* Setup error, stall the device */
-                USBD_SetStall(0);
+                USBD_SetStall(EP0);
+                USBD_SetStall(EP1);
                 break;
             }
         }
@@ -453,7 +478,7 @@ int32_t ProcessCommand(uint8_t *pu8Buffer, uint32_t u32BufferLen)
     if(gCmd.u32Signature != HID_CMD_SIGNATURE)
         return -1;
 
-    /* Calculate checksum & check it*/
+    /* Calculate checksum & check it */
     u32sum = CalCheckSum((uint8_t *)&gCmd, gCmd.u8Size);
     if(u32sum != gCmd.u32Checksum)
         return -1;
@@ -609,7 +634,7 @@ void HID_UpdateKbData(void)
 
         /* If PB.15 = 0, just report it is key 'a' */
         key = (PB->PIN & (1 << 15)) ? 0 : 1;
-			  
+
         if(key == 0)
         {
             for(i = 0; i < 8; i++)
@@ -621,7 +646,7 @@ void HID_UpdateKbData(void)
             {
                 /* Trigger to note key release */
                 USBD_SET_PAYLOAD_LEN(EP4, 8);
-            }			
+            }
         }
         else
         {
@@ -629,6 +654,43 @@ void HID_UpdateKbData(void)
             buf[2] = 0x04; /* Key 'a' */
             USBD_SET_PAYLOAD_LEN(EP4, 8);
         }
+    }
+
+    if(s_au8LEDStatus[0] != s_u32LEDStatus)
+    {
+        if((s_au8LEDStatus[0] & HID_LED_ALL) != (s_u32LEDStatus & HID_LED_ALL))
+        {
+            if(s_au8LEDStatus[0] & HID_LED_NumLock)
+                printf("NumLock ON, ");
+
+            else
+                printf("NumLock OFF, ");
+
+            if(s_au8LEDStatus[0] & HID_LED_CapsLock)
+                printf("CapsLock ON, ");
+
+            else
+                printf("CapsLock OFF, ");
+
+            if(s_au8LEDStatus[0] & HID_LED_ScrollLock)
+                printf("ScrollLock ON, ");
+
+            else
+                printf("ScrollLock OFF, ");
+
+            if(s_au8LEDStatus[0] & HID_LED_Compose)
+                printf("Compose ON, ");
+
+            else
+                printf("Compose OFF, ");
+
+            if(s_au8LEDStatus[0] & HID_LED_Kana)
+                printf("Kana ON\n");
+
+            else
+                printf("Kana OFF\n");
+        }
+        s_u32LEDStatus = s_au8LEDStatus[0];
     }
 }
 

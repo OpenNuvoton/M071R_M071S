@@ -87,7 +87,7 @@ static __INLINE uint32_t get_be32(uint8_t *buf)
 
 static __INLINE uint16_t get_be16(uint8_t * buf)
 {
-	return (((uint16_t) buf[0] << 8) | ((uint16_t) buf[1]));
+    return (((uint16_t) buf[0] << 8) | ((uint16_t) buf[1]));
 }
 
 
@@ -137,6 +137,7 @@ extern const unsigned char eprom[MSC_ImageSize];   /* Disk Image */
 
 extern uint32_t MassBlock[];
 extern uint32_t Storage_Block[];
+extern uint8_t volatile g_u8Suspend;
 
 #define MassCMD_BUF        ((uint32_t)&MassBlock[0])
 #define STORAGE_DATA_BUF   ((uint32_t)&Storage_Block[0])
@@ -152,7 +153,7 @@ void MSC_ReadFormatCapacity(void);
 void MSC_Read(void);
 void MSC_ReadCapacity(void);
 void MSC_Write(void);
-void MSC_ModeSense10(void);
+uint32_t MSC_ModeSense10(void);
 void MSC_ReadTrig(void);
 void MSC_ClassRequest(void);
 
@@ -166,5 +167,3 @@ void EP2_Handler(void);
 void EP3_Handler(void);
 
 #endif  /* __USBD_MASS_H_ */
-
-/*** (C) COPYRIGHT 2017 Nuvoton Technology Corp. ***/

@@ -119,7 +119,7 @@ int main(void)
             /* Read received data */
             s_au32DestinationData[u32DataCount] = SPI_READ_RX(SPI1);
             u32DataCount++;
-            if(u32DataCount >= TEST_COUNT)
+            if(u32DataCount > TEST_COUNT)
                 break;
         }
 

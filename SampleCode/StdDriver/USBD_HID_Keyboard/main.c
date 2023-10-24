@@ -15,7 +15,7 @@
 
 /*--------------------------------------------------------------------------*/
 uint8_t volatile g_u8EP2Ready = 0;
-
+static uint32_t s_u32LEDStatus = 0;
 
 
 /*--------------------------------------------------------------------------*/
@@ -145,6 +145,61 @@ void HID_UpdateKbData(void)
             USBD_SET_PAYLOAD_LEN(EP2, 8);
         }
     }
+
+    if(g_au8LEDStatus[0] != s_u32LEDStatus)
+    {
+        if((g_au8LEDStatus[0] & HID_LED_ALL) != (s_u32LEDStatus & HID_LED_ALL))
+        {
+            if(g_au8LEDStatus[0] & HID_LED_NumLock)
+                printf("NumLock ON, ");
+
+            else
+                printf("NumLock OFF, ");
+
+            if(g_au8LEDStatus[0] & HID_LED_CapsLock)
+                printf("CapsLock ON, ");
+
+            else
+                printf("CapsLock OFF, ");
+
+            if(g_au8LEDStatus[0] & HID_LED_ScrollLock)
+                printf("ScrollLock ON, ");
+
+            else
+                printf("ScrollLock OFF, ");
+
+            if(g_au8LEDStatus[0] & HID_LED_Compose)
+                printf("Compose ON, ");
+
+            else
+                printf("Compose OFF, ");
+
+            if(g_au8LEDStatus[0] & HID_LED_Kana)
+                printf("Kana ON\n");
+
+            else
+                printf("Kana OFF\n");
+        }
+        s_u32LEDStatus = g_au8LEDStatus[0];
+    }
+}
+
+void PowerDown()
+{
+    /* Unlock protected registers */
+    SYS_UnlockReg();
+
+    /* Wakeup Enable */
+    USBD_ENABLE_INT(USBD_INTEN_WAKEUP_EN_Msk);
+
+    CLK_PowerDown();
+
+    /* Clear PWR_DOWN_EN if it is not clear by itself */
+    if(CLK->PWRCON & CLK_PWRCON_PWR_DOWN_EN_Msk)
+        CLK->PWRCON ^= CLK_PWRCON_PWR_DOWN_EN_Msk;
+
+    /* Lock protected registers */
+    SYS_LockReg();
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -152,7 +207,9 @@ void HID_UpdateKbData(void)
 /*---------------------------------------------------------------------------------------------------------*/
 int32_t main(void)
 {
+#if CRYSTAL_LESS
     uint32_t u32TrimInit;
+#endif
 
     /* Unlock protected registers */
     SYS_UnlockReg();
@@ -180,6 +237,9 @@ int32_t main(void)
     u32TrimInit = M32(TRIM_INIT);
 #endif
 
+    /* Clear SOF */
+    USBD->INTSTS = USBD_INTSTS_SOF_STS_Msk;
+
     /* start to IN data */
     g_u8EP2Ready = 1;
 
@@ -189,8 +249,15 @@ int32_t main(void)
         /* Start USB trim if it is not enabled. */
         if((SYS->HIRCTCTL & SYS_HIRCTCTL_FREQSEL_Msk) != 1)
         {
-            /* Re-enable crystal-less */
-            SYS->HIRCTCTL = 0x201 | (31 << SYS_HIRCTCTL_BOUNDARY_Pos);
+            /* Start USB trim only when SOF */
+            if(USBD->INTSTS & USBD_INTSTS_SOF_STS_Msk)
+            {
+                /* Clear SOF */
+                USBD->INTSTS = USBD_INTSTS_SOF_STS_Msk;
+
+                /* Re-enable crystal-less */
+                SYS->HIRCTCTL = 0x201 | (31 << SYS_HIRCTCTL_BOUNDARY_Pos);
+            }
         }
 
         /* Disable USB Trim when error */
@@ -205,8 +272,15 @@ int32_t main(void)
 
             /* Clear error flags */
             SYS->HIRCTSTS = SYS_HIRCTSTS_CLKERIF_Msk | SYS_HIRCTSTS_TFAILIF_Msk;
+
+            /* Clear SOF */
+            USBD->INTSTS = USBD_INTSTS_SOF_STS_Msk;
         }
 #endif
+
+        /* Enter power down when USB suspend */
+        if(g_u8Suspend)
+            PowerDown();
 
         HID_UpdateKbData();
     }
