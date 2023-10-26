@@ -154,58 +154,58 @@ void PDMA_SetTransferMode(uint32_t u32Ch, uint32_t u32Peripheral, uint32_t u32Sc
     pdma = (PDMA_T *)((uint32_t) PDMA0_BASE + (0x100 * u32Ch));
 
     if(u32Peripheral > PDMA_ADC) /* Memory-to-Memory */
-        pdma->CSR = (pdma->CSR & ~(PDMA_CSR_MODE_SEL_Msk));
+        pdma->CSR = (pdma->CSR & (~(PDMA_CSR_MODE_SEL_Msk)));
     else if(u32Peripheral > PDMA_I2S_TX) /* Peripheral-to-Memory */
-        pdma->CSR = (pdma->CSR & ~(PDMA_CSR_MODE_SEL_Msk) | (0x1 << PDMA_CSR_MODE_SEL_Pos));
+        pdma->CSR = (pdma->CSR & ~(PDMA_CSR_MODE_SEL_Msk)) | (0x1 << PDMA_CSR_MODE_SEL_Pos);
     else /* Memory-to-Peripheral */
-        pdma->CSR = (pdma->CSR & ~(PDMA_CSR_MODE_SEL_Msk) | (0x2 << PDMA_CSR_MODE_SEL_Pos));
+        pdma->CSR = (pdma->CSR & ~(PDMA_CSR_MODE_SEL_Msk)) | (0x2 << PDMA_CSR_MODE_SEL_Pos);
 
     switch(u32Peripheral)
     {
         case 0:
-            PDMA_GCR->PDSSR0 = (PDMA_GCR->PDSSR0 & ~PDMA_PDSSR0_SPI0_TXSEL_Msk) | (u32Ch << PDMA_PDSSR0_SPI0_TXSEL_Pos);
+            PDMA_GCR->PDSSR0 = (PDMA_GCR->PDSSR0 & (~PDMA_PDSSR0_SPI0_TXSEL_Msk)) | (u32Ch << PDMA_PDSSR0_SPI0_TXSEL_Pos);
             break;
         case 1:
-            PDMA_GCR->PDSSR0 = (PDMA_GCR->PDSSR0 & ~PDMA_PDSSR0_SPI1_TXSEL_Msk) | (u32Ch << PDMA_PDSSR0_SPI1_TXSEL_Pos);
+            PDMA_GCR->PDSSR0 = (PDMA_GCR->PDSSR0 & (~PDMA_PDSSR0_SPI1_TXSEL_Msk)) | (u32Ch << PDMA_PDSSR0_SPI1_TXSEL_Pos);
             break;
         case 2:
-            PDMA_GCR->PDSSR0 = (PDMA_GCR->PDSSR0 & ~PDMA_PDSSR0_SPI2_TXSEL_Msk) | (u32Ch << PDMA_PDSSR0_SPI2_TXSEL_Pos);
+            PDMA_GCR->PDSSR0 = (PDMA_GCR->PDSSR0 & (~PDMA_PDSSR0_SPI2_TXSEL_Msk)) | (u32Ch << PDMA_PDSSR0_SPI2_TXSEL_Pos);
             break;
         case 3:
-            PDMA_GCR->PDSSR0 = (PDMA_GCR->PDSSR0 & ~PDMA_PDSSR0_SPI3_TXSEL_Msk) | (u32Ch << PDMA_PDSSR0_SPI3_TXSEL_Pos);
+            PDMA_GCR->PDSSR0 = (PDMA_GCR->PDSSR0 & (~PDMA_PDSSR0_SPI3_TXSEL_Msk)) | (u32Ch << PDMA_PDSSR0_SPI3_TXSEL_Pos);
             break;
         case 4:
-            PDMA_GCR->PDSSR1 = (PDMA_GCR->PDSSR1 & ~PDMA_PDSSR1_UART0_TXSEL_Msk) | (u32Ch << PDMA_PDSSR1_UART0_TXSEL_Pos);
+            PDMA_GCR->PDSSR1 = (PDMA_GCR->PDSSR1 & (~PDMA_PDSSR1_UART0_TXSEL_Msk)) | (u32Ch << PDMA_PDSSR1_UART0_TXSEL_Pos);
             break;
         case 5:
-            PDMA_GCR->PDSSR1 = (PDMA_GCR->PDSSR1 & ~PDMA_PDSSR1_UART1_TXSEL_Msk) | (u32Ch << PDMA_PDSSR1_UART1_TXSEL_Pos);
+            PDMA_GCR->PDSSR1 = (PDMA_GCR->PDSSR1 & (~PDMA_PDSSR1_UART1_TXSEL_Msk)) | (u32Ch << PDMA_PDSSR1_UART1_TXSEL_Pos);
             break;
         case 6:
-            PDMA_GCR->PDSSR2 = (PDMA_GCR->PDSSR2 & ~PDMA_PDSSR2_I2S_TXSEL_Msk) | (u32Ch << PDMA_PDSSR2_I2S_TXSEL_Pos);
+            PDMA_GCR->PDSSR2 = (PDMA_GCR->PDSSR2 & (~PDMA_PDSSR2_I2S_TXSEL_Msk)) | (u32Ch << PDMA_PDSSR2_I2S_TXSEL_Pos);
             break;
         case 7:
-            PDMA_GCR->PDSSR0 = (PDMA_GCR->PDSSR0 & ~PDMA_PDSSR0_SPI0_RXSEL_Msk) | (u32Ch << PDMA_PDSSR0_SPI0_RXSEL_Pos);
+            PDMA_GCR->PDSSR0 = (PDMA_GCR->PDSSR0 & (~PDMA_PDSSR0_SPI0_RXSEL_Msk)) | (u32Ch << PDMA_PDSSR0_SPI0_RXSEL_Pos);
             break;
         case 8:
-            PDMA_GCR->PDSSR0 = (PDMA_GCR->PDSSR0 & ~PDMA_PDSSR0_SPI1_RXSEL_Msk) | (u32Ch << PDMA_PDSSR0_SPI1_RXSEL_Pos);
+            PDMA_GCR->PDSSR0 = (PDMA_GCR->PDSSR0 & (~PDMA_PDSSR0_SPI1_RXSEL_Msk)) | (u32Ch << PDMA_PDSSR0_SPI1_RXSEL_Pos);
             break;
         case 9:
-            PDMA_GCR->PDSSR0 = (PDMA_GCR->PDSSR0 & ~PDMA_PDSSR0_SPI2_RXSEL_Msk) | (u32Ch << PDMA_PDSSR0_SPI2_RXSEL_Pos);
+            PDMA_GCR->PDSSR0 = (PDMA_GCR->PDSSR0 & (~PDMA_PDSSR0_SPI2_RXSEL_Msk)) | (u32Ch << PDMA_PDSSR0_SPI2_RXSEL_Pos);
             break;
         case 10:
-            PDMA_GCR->PDSSR0 = (PDMA_GCR->PDSSR0 & ~PDMA_PDSSR0_SPI3_RXSEL_Msk) | (u32Ch << PDMA_PDSSR0_SPI3_RXSEL_Pos);
+            PDMA_GCR->PDSSR0 = (PDMA_GCR->PDSSR0 & (~PDMA_PDSSR0_SPI3_RXSEL_Msk)) | (u32Ch << PDMA_PDSSR0_SPI3_RXSEL_Pos);
             break;
         case 11:
-            PDMA_GCR->PDSSR1 = (PDMA_GCR->PDSSR1 & ~PDMA_PDSSR1_UART0_RXSEL_Msk) | (u32Ch << PDMA_PDSSR1_UART0_RXSEL_Pos);
+            PDMA_GCR->PDSSR1 = (PDMA_GCR->PDSSR1 & (~PDMA_PDSSR1_UART0_RXSEL_Msk)) | (u32Ch << PDMA_PDSSR1_UART0_RXSEL_Pos);
             break;
         case 12:
-            PDMA_GCR->PDSSR1 = (PDMA_GCR->PDSSR1 & ~PDMA_PDSSR1_UART1_RXSEL_Msk) | (u32Ch << PDMA_PDSSR1_UART1_RXSEL_Pos);
+            PDMA_GCR->PDSSR1 = (PDMA_GCR->PDSSR1 & (~PDMA_PDSSR1_UART1_RXSEL_Msk)) | (u32Ch << PDMA_PDSSR1_UART1_RXSEL_Pos);
             break;
         case 13:
-            PDMA_GCR->PDSSR2 = (PDMA_GCR->PDSSR2 & ~PDMA_PDSSR2_I2S_RXSEL_Msk) | (u32Ch << PDMA_PDSSR2_I2S_RXSEL_Pos);
+            PDMA_GCR->PDSSR2 = (PDMA_GCR->PDSSR2 & (~PDMA_PDSSR2_I2S_RXSEL_Msk)) | (u32Ch << PDMA_PDSSR2_I2S_RXSEL_Pos);
             break;
         case 14:
-            PDMA_GCR->PDSSR1 = (PDMA_GCR->PDSSR1 & ~PDMA_PDSSR1_ADC_RXSEL_Msk) | (u32Ch << PDMA_PDSSR1_ADC_RXSEL_Pos);
+            PDMA_GCR->PDSSR1 = (PDMA_GCR->PDSSR1 & (~PDMA_PDSSR1_ADC_RXSEL_Msk)) | (u32Ch << PDMA_PDSSR1_ADC_RXSEL_Pos);
             break;
 
         default:/* select PDMA channel as memory to memory */
