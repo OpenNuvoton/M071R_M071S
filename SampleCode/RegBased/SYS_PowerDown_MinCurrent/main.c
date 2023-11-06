@@ -23,7 +23,7 @@
 //      <0=> Disable
 //      <1=> Enable
 */
-#define SET_LVR       0
+#define SET_LVR       1
 
 /*
 // <o0> POR
@@ -228,7 +228,7 @@ void SYS_Init(void)
     CLK->CLKSEL0 = (CLK->CLKSEL0 & (~CLK_CLKSEL0_HCLK_S_Msk)) | CLK_CLKSEL0_HCLK_S_PLL;
 
     /* Update System Core Clock */
-    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CycylesPerUs automatically. */
+    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CyclesPerUs automatically. */
     //SystemCoreClockUpdate();
     PllClock        = PLL_CLOCK;            // PLL
     SystemCoreClock = PLL_CLOCK / 1;        // HCLK
@@ -290,11 +290,10 @@ int32_t main(void)
     printf("| Operating sequence                                                |\n");
     printf("|  1. Remove all continuous load, e.g. LED.                         |\n");
     printf("|  2. Configure all GPIO as Quasi-bidirectional Mode                |\n");
-    printf("|  3. Disable LVR                                                   |\n");
-    printf("|  4. Disable analog function, e.g. POR module                      |\n");
-    printf("|  5. Disable unused clock, e.g. LIRC                               |\n");
-    printf("|  6. Enter to Power-Down                                           |\n");
-    printf("|  7. Wait for PB.3 falling-edge interrupt event to wake-up the MCU |\n");
+    printf("|  3. Disable analog function, e.g. POR module                      |\n");
+    printf("|  4. Disable unused clock, e.g. LIRC                               |\n");
+    printf("|  5. Enter to Power-Down                                           |\n");
+    printf("|  6. Wait for PB.3 falling-edge interrupt event to wake-up the MCU |\n");
     printf("+-------------------------------------------------------------------+\n\n");
 
     /*
