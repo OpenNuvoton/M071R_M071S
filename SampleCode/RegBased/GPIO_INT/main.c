@@ -21,7 +21,7 @@
  *
  * @return      None
  *
- * @details     The PA/PB default IRQ, declared in startup_NUC2201.s.
+ * @details     The PA/PB default IRQ, declared in startup_M071R_M071S.s.
  */
 void GPAB_IRQHandler(void)
 {
@@ -38,13 +38,13 @@ void GPAB_IRQHandler(void)
 }
 
 /**
- * @brief       GPIO PC/PD/PE/PF IRQ
+ * @brief       GPIO PC/PE/PF IRQ
  *
  * @param       None
  *
  * @return      None
  *
- * @details     The PC/PD/PE/PF default IRQ, declared in startup_NUC2201.s.
+ * @details     The PC/PE/PF default IRQ, declared in startup_M071R_M071S.s.
  */
 void GPCDEF_IRQHandler(void)
 {
@@ -53,7 +53,7 @@ void GPCDEF_IRQHandler(void)
         GPIO_CLR_INT_FLAG(PE, BIT5);
         printf("PE.5 INT occurred.\n");
     } else {
-        /* Un-expected interrupt. Just clear all PC, PD, PE and PF interrupts */
+        /* Un-expected interrupt. Just clear all PC, PE and PF interrupts */
         PC->ISRC = PC->ISRC;
         PE->ISRC = PE->ISRC;
         PF->ISRC = PF->ISRC;
@@ -78,8 +78,8 @@ void SYS_Init(void)
     CLK->CLKDIV = (CLK->CLKDIV & (~CLK_CLKDIV_HCLK_N_Msk)) | CLK_CLKDIV_HCLK(1);
 
     /* Set PLL to power down mode and PLL_STB bit in CLKSTATUS register will be cleared by hardware */
-    CLK->PLLCON |= CLK_PLLCON_PD_Msk;        
-    
+    CLK->PLLCON |= CLK_PLLCON_PD_Msk;
+
     /* Enable external XTAL 12MHz clock */
     CLK->PWRCON |= CLK_PWRCON_XTL12M_EN_Msk;
 
@@ -95,7 +95,7 @@ void SYS_Init(void)
     CLK->CLKSEL0 = (CLK->CLKSEL0 & (~CLK_CLKSEL0_HCLK_S_Msk)) | CLK_CLKSEL0_HCLK_S_PLL;
 
     /* Update System Core Clock */
-    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CycylesPerUs automatically. */
+    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CyclesPerUs automatically. */
     //SystemCoreClockUpdate();
     PllClock        = PLL_CLOCK;            // PLL
     SystemCoreClock = PLL_CLOCK / 1;        // HCLK
@@ -117,7 +117,7 @@ void SYS_Init(void)
 
 }
 
-void UART0_Init()
+void UART0_Init(void)
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
@@ -134,7 +134,7 @@ void UART0_Init()
 /*---------------------------------------------------------------------------------------------------------*/
 /* MAIN function                                                                                           */
 /*---------------------------------------------------------------------------------------------------------*/
-int main(void)
+int32_t main(void)
 {
     /* Unlock protected registers */
     SYS_UnlockReg();

@@ -27,7 +27,7 @@ volatile uint32_t g_au32TMRINTCount[4] = {0};
  *
  * @return      None
  *
- * @details     The Timer0 default IRQ, declared in startup_NUC2201.s.
+ * @details     The Timer0 default IRQ, declared in startup_M071R_M071S.s.
  */
 void TMR0_IRQHandler(void)
 {
@@ -46,7 +46,7 @@ void TMR0_IRQHandler(void)
  *
  * @return      None
  *
- * @details     The Timer1 default IRQ, declared in startup_NUC2201.s.
+ * @details     The Timer1 default IRQ, declared in startup_M071R_M071S.s.
  */
 void TMR1_IRQHandler(void)
 {
@@ -65,7 +65,7 @@ void TMR1_IRQHandler(void)
  *
  * @return      None
  *
- * @details     The Timer2 default IRQ, declared in startup_NUC2201.s.
+ * @details     The Timer2 default IRQ, declared in startup_M071R_M071S.s.
  */
 void TMR2_IRQHandler(void)
 {
@@ -84,7 +84,7 @@ void TMR2_IRQHandler(void)
  *
  * @return      None
  *
- * @details     The Timer3 default IRQ, declared in startup_NUC2201.s.
+ * @details     The Timer3 default IRQ, declared in startup_M071R_M071S.s.
  */
 void TMR3_IRQHandler(void)
 {
@@ -118,18 +118,18 @@ void SYS_Init(void)
 
     /* Set core clock as PLL_CLOCK from PLL */
     CLK_SetCoreClock(PLL_CLOCK);
-    
+
     /* Enable UART module clock */
-    CLK_EnableModuleClock(UART0_MODULE);    
-    
+    CLK_EnableModuleClock(UART0_MODULE);
+
     /* Select UART module clock source */
     CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL1_UART_S_HXT, CLK_CLKDIV_UART(1));
 
     /* Enable Timer 0~3 module clock */
-    CLK_EnableModuleClock(TMR0_MODULE);    
-    CLK_EnableModuleClock(TMR1_MODULE);    
-    CLK_EnableModuleClock(TMR2_MODULE);    
-    CLK_EnableModuleClock(TMR3_MODULE);    
+    CLK_EnableModuleClock(TMR0_MODULE);
+    CLK_EnableModuleClock(TMR1_MODULE);
+    CLK_EnableModuleClock(TMR2_MODULE);
+    CLK_EnableModuleClock(TMR3_MODULE);
 
     /* Select Timer 0~3 module clock source */
     CLK_SetModuleClock(TMR0_MODULE, CLK_CLKSEL1_TMR0_S_HXT, NULL);
@@ -232,12 +232,14 @@ int main(void)
                     (g_au32TMRINTCount[2] > (g_au32TMRINTCount[0] * 4 + 1)) || (g_au32TMRINTCount[2] < (g_au32TMRINTCount[0] * 4 - 1)) ||
                     (g_au32TMRINTCount[3] > (g_au32TMRINTCount[0] * 8 + 1)) || (g_au32TMRINTCount[3] < (g_au32TMRINTCount[0] * 8 - 1))) {
                 printf("*** FAIL ***\n");
-                while(1);
+                goto lexit;
             }
         }
     }
 
     printf("*** PASS ***\n");
+
+lexit:
 
     while(1);
 }

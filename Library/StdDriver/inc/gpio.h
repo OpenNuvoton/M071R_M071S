@@ -143,22 +143,6 @@ extern "C"
 #define PC13            GPIO_PIN_DATA(2, 13) /*!< Specify PC.13 Pin Data Input/Output */
 #define PC14            GPIO_PIN_DATA(2, 14) /*!< Specify PC.14 Pin Data Input/Output */
 #define PC15            GPIO_PIN_DATA(2, 15) /*!< Specify PC.15 Pin Data Input/Output */
-#define PD0             GPIO_PIN_DATA(3, 0 ) /*!< Specify PD.0 Pin Data Input/Output */
-#define PD1             GPIO_PIN_DATA(3, 1 ) /*!< Specify PD.1 Pin Data Input/Output */
-#define PD2             GPIO_PIN_DATA(3, 2 ) /*!< Specify PD.2 Pin Data Input/Output */
-#define PD3             GPIO_PIN_DATA(3, 3 ) /*!< Specify PD.3 Pin Data Input/Output */
-#define PD4             GPIO_PIN_DATA(3, 4 ) /*!< Specify PD.4 Pin Data Input/Output */
-#define PD5             GPIO_PIN_DATA(3, 5 ) /*!< Specify PD.5 Pin Data Input/Output */
-#define PD6             GPIO_PIN_DATA(3, 6 ) /*!< Specify PD.6 Pin Data Input/Output */
-#define PD7             GPIO_PIN_DATA(3, 7 ) /*!< Specify PD.7 Pin Data Input/Output */
-#define PD8             GPIO_PIN_DATA(3, 8 ) /*!< Specify PD.8 Pin Data Input/Output */
-#define PD9             GPIO_PIN_DATA(3, 9 ) /*!< Specify PD.9 Pin Data Input/Output */
-#define PD10            GPIO_PIN_DATA(3, 10) /*!< Specify PD.10 Pin Data Input/Output */
-#define PD11            GPIO_PIN_DATA(3, 11) /*!< Specify PD.11 Pin Data Input/Output */
-#define PD12            GPIO_PIN_DATA(3, 12) /*!< Specify PD.12 Pin Data Input/Output */
-#define PD13            GPIO_PIN_DATA(3, 13) /*!< Specify PD.13 Pin Data Input/Output */
-#define PD14            GPIO_PIN_DATA(3, 14) /*!< Specify PD.14 Pin Data Input/Output */
-#define PD15            GPIO_PIN_DATA(3, 15) /*!< Specify PD.15 Pin Data Input/Output */
 #define PE0             GPIO_PIN_DATA(4, 0 ) /*!< Specify PE.0 Pin Data Input/Output */
 #define PE1             GPIO_PIN_DATA(4, 1 ) /*!< Specify PE.1 Pin Data Input/Output */
 #define PE2             GPIO_PIN_DATA(4, 2 ) /*!< Specify PE.2 Pin Data Input/Output */
@@ -191,9 +175,9 @@ extern "C"
 /**
  * @brief       Clear GPIO Pin Interrupt Flag
  *
- * @param[in]   port        GPIO port. It could be PA, PB, PC, PD, PE or PF.
+ * @param[in]   port        GPIO port. It could be PA, PB, PC, PE or PF.
  * @param[in]   u32PinMask  The single or multiple pins of specified GPIO port.
- *                          It could be BIT0 ~ BIT15 for PA, PB, PC, PD and PE GPIO port.
+ *                          It could be BIT0 ~ BIT15 for PA, PB, PC and PE GPIO port.
  *                          It could be BIT0 ~ BIT3 for PF GPIO port.
  *
  * @return      None
@@ -205,9 +189,9 @@ extern "C"
 /**
  * @brief       Disable Pin De-bounce Function
  *
- * @param[in]   port        GPIO port. It could be PA, PB, PC, PD, PE or PF.
+ * @param[in]   port        GPIO port. It could be PA, PB, PC, PE or PF.
  * @param[in]   u32PinMask  The single or multiple pins of specified GPIO port.
- *                          It could be BIT0 ~ BIT15 for PA, PB, PC, PD and PE GPIO port.
+ *                          It could be BIT0 ~ BIT15 for PA, PB, PC and PE GPIO port.
  *                          It could be BIT0 ~ BIT3 for PF GPIO port.
  *
  * @return      None
@@ -219,9 +203,9 @@ extern "C"
 /**
  * @brief       Enable Pin De-bounce Function
  *
- * @param[in]   port        GPIO port. It could be PA, PB, PC, PD, PE or PF.
+ * @param[in]   port        GPIO port. It could be PA, PB, PC, PE or PF.
  * @param[in]   u32PinMask  The single or multiple pins of specified GPIO port.
- *                          It could be BIT0 ~ BIT15 for PA, PB, PC, PD and PE GPIO port.
+ *                          It could be BIT0 ~ BIT15 for PA, PB, PC and PE GPIO port.
  *                          It could be BIT0 ~ BIT3 for PF GPIO port.
  *
  * @return      None
@@ -233,9 +217,9 @@ extern "C"
 /**
  * @brief       Disable I/O Digital Input Path
  *
- * @param[in]   port        GPIO port. It could be PA, PB, PC, PD, PE or PF.
+ * @param[in]   port        GPIO port. It could be PA, PB, PC, PE or PF.
  * @param[in]   u32PinMask  The single or multiple pins of specified GPIO port.
- *                          It could be BIT0 ~ BIT15 for PA, PB, PC, PD and PE GPIO port.
+ *                          It could be BIT0 ~ BIT15 for PA, PB, PC and PE GPIO port.
  *                          It could be BIT0 ~ BIT3 for PF GPIO port.
  *
  * @return      None
@@ -247,9 +231,9 @@ extern "C"
 /**
  * @brief       Enable I/O Digital Input Path
  *
- * @param[in]   port        GPIO port. It could be PA, PB, PC, PD, PE or PF.
+ * @param[in]   port        GPIO port. It could be PA, PB, PC, PE or PF.
  * @param[in]   u32PinMask  The single or multiple pins of specified GPIO port.
- *                          It could be BIT0 ~ BIT15 for PA, PB, PC, PD and PE GPIO port.
+ *                          It could be BIT0 ~ BIT15 for PA, PB, PC and PE GPIO port.
  *                          It could be BIT0 ~ BIT3 for PF GPIO port.
  *
  * @return      None
@@ -261,9 +245,9 @@ extern "C"
 /**
  * @brief       Disable I/O DOUT mask
  *
- * @param[in]   port        GPIO port. It could be PA, PB, PC, PD, PE or PF.
+ * @param[in]   port        GPIO port. It could be PA, PB, PC, PE or PF.
  * @param[in]   u32PinMask  The single or multiple pins of specified GPIO port.
- *                          It could be BIT0 ~ BIT15 for PA, PB, PC, PD and PE GPIO port.
+ *                          It could be BIT0 ~ BIT15 for PA, PB, PC and PE GPIO port.
  *                          It could be BIT0 ~ BIT3 for PF GPIO port.
  *
  * @return      None
@@ -275,9 +259,9 @@ extern "C"
 /**
  * @brief       Enable I/O DOUT mask
  *
- * @param[in]   port        GPIO port. It could be PA, PB, PC, PD, PE or PF.
+ * @param[in]   port        GPIO port. It could be PA, PB, PC, PE or PF.
  * @param[in]   u32PinMask  The single or multiple pins of specified GPIO port.
- *                          It could be BIT0 ~ BIT15 for PA, PB, PC, PD and PE GPIO port.
+ *                          It could be BIT0 ~ BIT15 for PA, PB, PC and PE GPIO port.
  *                          It could be BIT0 ~ BIT3 for PF GPIO port.
  *
  * @return      None
@@ -289,9 +273,9 @@ extern "C"
 /**
  * @brief       Get GPIO Pin Interrupt Flag
  *
- * @param[in]   port        GPIO port. It could be PA, PB, PC, PD, PE or PF.
+ * @param[in]   port        GPIO port. It could be PA, PB, PC, PE or PF.
  * @param[in]   u32PinMask  The single or multiple pins of specified GPIO port.
- *                          It could be BIT0 ~ BIT15 for PA, PB, PC, PD and PE GPIO port.
+ *                          It could be BIT0 ~ BIT15 for PA, PB, PC and PE GPIO port.
  *                          It could be BIT0 ~ BIT3 for PF GPIO port.
  *
  * @retval      0           No interrupt at specified GPIO pin
@@ -304,29 +288,43 @@ extern "C"
 /**
  * @brief       Set De-bounce Sampling Cycle Time
  *
- * @param[in]   u32ClkSrc    The de-bounce counter clock source. It could be GPIO_DBCLKSRC_HCLK or GPIO_DBCLKSRC_LIRC.
- * @param[in]   u32ClkSel    The de-bounce sampling cycle selection. It could be \n
- *                              GPIO_DBCLKSEL_1, GPIO_DBCLKSEL_2, GPIO_DBCLKSEL_4, GPIO_DBCLKSEL_8, \n
- *                              GPIO_DBCLKSEL_16, GPIO_DBCLKSEL_32, GPIO_DBCLKSEL_64, GPIO_DBCLKSEL_128, \n
- *                              GPIO_DBCLKSEL_256, GPIO_DBCLKSEL_512, GPIO_DBCLKSEL_1024, GPIO_DBCLKSEL_2048, \n
- *                              GPIO_DBCLKSEL_4096, GPIO_DBCLKSEL_8192, GPIO_DBCLKSEL_16384, GPIO_DBCLKSEL_32768.
+ * @param[in]   u32ClkSrc    The de-bounce counter clock source. It could be
+ *                           - \ref GPIO_DBCLKSRC_HCLK
+ *                           - \ref GPIO_DBCLKSRC_LIRC
+ * @param[in]   u32ClkSel    The de-bounce sampling cycle selection. It could be
+ *                           - \ref GPIO_DBCLKSEL_1
+ *                           - \ref GPIO_DBCLKSEL_2
+ *                           - \ref GPIO_DBCLKSEL_4
+ *                           - \ref GPIO_DBCLKSEL_8
+ *                           - \ref GPIO_DBCLKSEL_16
+ *                           - \ref GPIO_DBCLKSEL_32
+ *                           - \ref GPIO_DBCLKSEL_64
+ *                           - \ref GPIO_DBCLKSEL_128
+ *                           - \ref GPIO_DBCLKSEL_256
+ *                           - \ref GPIO_DBCLKSEL_512
+ *                           - \ref GPIO_DBCLKSEL_1024
+ *                           - \ref GPIO_DBCLKSEL_2048
+ *                           - \ref GPIO_DBCLKSEL_4096
+ *                           - \ref GPIO_DBCLKSEL_8192
+ *                           - \ref GPIO_DBCLKSEL_16384
+ *                           - \ref GPIO_DBCLKSEL_32768
  *
  * @return      None
  *
  * @details     Set the interrupt de-bounce sampling cycle time based on the debounce counter clock source. \n
- *              Example: _GPIO_SET_DEBOUNCE_TIME(GPIO_DBNCECON_DBCLKSRC_IRC10K, GPIO_DBNCECON_DBCLKSEL_4). \n
+ *              Example: GPIO_SET_DEBOUNCE_TIME(GPIO_DBCLKSRC_LIRC, GPIO_DBCLKSEL_4). \n
  *              It's meaning the De-debounce counter clock source is internal 10 KHz and sampling cycle selection is 4. \n
- *              Then the target de-bounce sampling cycle time is (2^4)*(1/(10*1000)) s = 16*0.0001 s = 1600 us,
- *              and system will sampling interrupt input once per 1600 us.
+ *              Then the target de-bounce sampling cycle time is (4)*(1/(10*1000)) s = 4*0.0001 s = 400 us,
+ *              and system will sampling interrupt input once per 400 us.
  */
 #define GPIO_SET_DEBOUNCE_TIME(u32ClkSrc, u32ClkSel)    (GPIO->DBNCECON = (GPIO_DBNCECON_ICLK_ON_Msk | (u32ClkSrc) | (u32ClkSel)))
 
 /**
  * @brief       Get GPIO Port IN Data
  *
- * @param[in]   port        GPIO port. It could be PA, PB, PC, PD, PE or PF.
+ * @param[in]   port        GPIO port. It could be PA, PB, PC, PE or PF.
  *
- * @retval      The specified port data
+ * @return      The specified port data
  *
  * @details     Get the PIN register of specified GPIO port.
  */
@@ -335,7 +333,7 @@ extern "C"
 /**
  * @brief       Set GPIO Port OUT Data
  *
- * @param[in]   port        GPIO port. It could be PA, PB, PC, PD, PE or PF.
+ * @param[in]   port        GPIO port. It could be PA, PB, PC, PE or PF.
  * @param[in]   u32Data     GPIO port data.
  *
  * @return      None
@@ -358,12 +356,16 @@ extern "C"
 /**
  * @brief       Enable External GPIO Interrupt 0
  *
- * @param[in]   port            GPIO port. It could be PA, PB, PC, PD, PE or PF.
+ * @param[in]   port            GPIO port. It could be PA, PB, PC, PE or PF.
  * @param[in]   u32Pin          The pin of specified GPIO port.
- *                              It could be 0 ~ 15 for PA, PB, PC, PD and PE GPIO port.
+ *                              It could be 0 ~ 15 for PA, PB, PC and PE GPIO port.
  *                              It could be 0 ~ 3 for PF GPIO port.
- * @param[in]   u32IntAttribs   The interrupt attribute of specified GPIO pin. It could be \n
- *                              GPIO_INT_RISING, GPIO_INT_FALLING, GPIO_INT_BOTH_EDGE, GPIO_INT_HIGH, GPIO_INT_LOW.
+ * @param[in]   u32IntAttribs   The interrupt attribute of specified GPIO pin. It could be
+ *                              - \ref GPIO_INT_RISING
+ *                              - \ref GPIO_INT_FALLING
+ *                              - \ref GPIO_INT_BOTH_EDGE
+ *                              - \ref GPIO_INT_HIGH
+ *                              - \ref GPIO_INT_LOW
  *
  * @return      None
  *
@@ -375,9 +377,9 @@ extern "C"
 /**
  * @brief       Disable External GPIO Interrupt 0
  *
- * @param[in]   port        GPIO port. It could be PA, PB, PC, PD, PE or PF.
+ * @param[in]   port        GPIO port. It could be PA, PB, PC, PE or PF.
  * @param[in]   u32Pin      The pin of specified GPIO port.
- *                          It could be 0 ~ 15 for PA, PB, PC, PD and PE GPIO port.
+ *                          It could be 0 ~ 15 for PA, PB, PC and PE GPIO port.
  *                          It could be 0 ~ 3 for PF GPIO port.
  *
  * @return      None
@@ -390,12 +392,16 @@ extern "C"
 /**
  * @brief       Enable External GPIO Interrupt 1
  *
- * @param[in]   port            GPIO port. It could be PA, PB, PC, PD, PE or PF.
+ * @param[in]   port            GPIO port. It could be PA, PB, PC, PE or PF.
  * @param[in]   u32Pin          The pin of specified GPIO port.
- *                              It could be 0 ~ 15 for PA, PB, PC, PD and PE GPIO port.
+ *                              It could be 0 ~ 15 for PA, PB, PC and PE GPIO port.
  *                              It could be 0 ~ 3 for PF GPIO port.
- * @param[in]   u32IntAttribs   The interrupt attribute of specified GPIO pin. It could be \n
- *                              GPIO_INT_RISING, GPIO_INT_FALLING, GPIO_INT_BOTH_EDGE, GPIO_INT_HIGH, GPIO_INT_LOW.
+ * @param[in]   u32IntAttribs   The interrupt attribute of specified GPIO pin. It could be
+ *                              - \ref GPIO_INT_RISING
+ *                              - \ref GPIO_INT_FALLING
+ *                              - \ref GPIO_INT_BOTH_EDGE
+ *                              - \ref GPIO_INT_HIGH
+ *                              - \ref GPIO_INT_LOW
  *
  * @return      None
  *
@@ -407,9 +413,9 @@ extern "C"
 /**
  * @brief       Disable External GPIO Interrupt 1
  *
- * @param[in]   port        GPIO port. It could be PA, PB, PC, PD, PE or PF.
+ * @param[in]   port        GPIO port. It could be PA, PB, PC, PE or PF.
  * @param[in]   u32Pin      The pin of specified GPIO port.
- *                          It could be 0 ~ 15 for PA, PB, PC, PD and PE GPIO port.
+ *                          It could be 0 ~ 15 for PA, PB, PC and PE GPIO port.
  *                          It could be 0 ~ 3 for PF GPIO port.
  *
  * @return      None

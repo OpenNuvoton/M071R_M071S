@@ -23,7 +23,7 @@
 //      <0=> Disable
 //      <1=> Enable
 */
-#define SET_LVR       0
+#define SET_LVR       1
 
 /*
 // <o0> POR
@@ -279,7 +279,7 @@ int32_t main(void)
     SYS->ALT_MFP = 0;
     SYS->ALT_MFP2 = 0;
 
-    /* Configure all GPIO as Quasi-bidirectional Mode. They ard default output high. */
+    /* Configure all GPIO as Quasi-bidirectional Mode. They are default output high. */
     GPIO_SetMode(PA, GPIO_P0_TO_P15, GPIO_PMD_QUASI);
     GPIO_SetMode(PB, GPIO_P0_TO_P15, GPIO_PMD_QUASI);
     GPIO_SetMode(PC, GPIO_P0_TO_P15, GPIO_PMD_QUASI);

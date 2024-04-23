@@ -38,7 +38,7 @@ void GenerateGPIOBCounter(uint32_t u32Pin, uint32_t u32Counts)
  *
  * @return      None
  *
- * @details     The Timer1 default IRQ, declared in startup_NUC2201.s.
+ * @details     The Timer1 default IRQ, declared in startup_M071R_M071S.s.
  */
 void TMR1_IRQHandler(void)
 {
@@ -169,10 +169,7 @@ int main(void)
     /* To check if TDR of Timer1 must be 0 as default value */
     if(TIMER_GetCounter(TIMER1) != 0) {
         printf("Default counter value is not 0. (%d)\n", TIMER_GetCounter(TIMER1));
-
-        /* Stop Timer1 counting */
-        TIMER1->TCSR = 0;
-        while(1);
+        goto lexit;
     }
 
     /* To generate one counter event to T1 pin */
@@ -182,28 +179,33 @@ int main(void)
     while(TIMER_GetCounter(TIMER1) == 0) {
         if(u32Loop++ > SystemCoreClock/1000) {
             printf("Time-out error. Please check counter input source.\n");
-            while(1);
+            goto lexit;
         }
     }
-    
+
     /* To check if TDR of Timer1 must be 1 */
     if(TIMER_GetCounter(TIMER1) != 1) {
         printf("Get unexpected counter value. (%d)\n", TIMER_GetCounter(TIMER1));
-
-        /* Stop Timer1 counting */
-        TIMER1->TCSR = 0;
-        while(1);
+        goto lexit;
     }
 
     /* To generate remains counts to T1 pin */
     GenerateGPIOBCounter(8, (56789 - 1));
 
+    u32Loop = 0;
     while(1) {
         if((g_au32TMRINTCount[1] == 1) && (TIMER_GetCounter(TIMER1) == 56789)) {
             printf("Timer1 external counter input function ... PASS.\n");
             break;
         }
+
+        if(u32Loop++ > SystemCoreClock) {
+            printf("Timer1 external counter input function ... FAIL.\n");
+            break;
+        }
     }
+
+lexit:
 
     /* Stop Timer1 counting */
     TIMER1->TCSR = 0;

@@ -72,7 +72,7 @@ void SYS_Init(void)
 
     /* Enable external 12 MHz XTAL */
     CLK->PWRCON |= CLK_PWRCON_XTL12M_EN_Msk;
-    
+
     /* Waiting for clock ready */
     while(!(CLK->CLKSTATUS & CLK_CLKSTATUS_XTL12M_STB_Msk));
 
@@ -81,7 +81,7 @@ void SYS_Init(void)
 
     /* Waiting for clock ready */
     while(!(CLK->CLKSTATUS & CLK_CLKSTATUS_PLL_STB_Msk));
-    
+
     /* System optimization when CPU runs at 72MHz */
     FMC->FATCON |= 0x50;
 
@@ -98,7 +98,7 @@ void SYS_Init(void)
     CLK->CLKSEL1 = CLK_CLKSEL1_UART_S_PLL;
 
     /* Update System Core Clock */
-    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CycylesPerUs automatically. */
+    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CyclesPerUs automatically. */
     SystemCoreClockUpdate();
 
     /*---------------------------------------------------------------------------------------------------------*/
@@ -126,8 +126,8 @@ void SYS_Init(void)
     SYS->ALT_MFP |= (SYS_ALT_MFP_PC6_AD4 | SYS_ALT_MFP_PC7_AD5);
     SYS->GPA_MFP |= (SYS_GPA_MFP_PA6_AD7);
     SYS->ALT_MFP |= (SYS_ALT_MFP_PA6_AD7);
-    SYS->ALT_MFP2 |= (SYS_ALT_MFP2_PB14_AD0 | SYS_ALT_MFP2_PB15_AD6); 
-   
+    SYS->ALT_MFP2 |= (SYS_ALT_MFP2_PB14_AD0 | SYS_ALT_MFP2_PB15_AD6);
+
     /* Set multi-function pins for EBI AD8 ~ AD15 */
     SYS->GPA_MFP &= ~(SYS_GPA_MFP_PA5_Msk | SYS_GPA_MFP_PA4_Msk |
                       SYS_GPA_MFP_PA3_Msk | SYS_GPA_MFP_PA2_Msk |
@@ -145,7 +145,7 @@ void SYS_Init(void)
                      SYS_ALT_MFP_PA3_AD10 | SYS_ALT_MFP_PA2_AD11 |
                      SYS_ALT_MFP_PA1_AD12 | SYS_ALT_MFP_PA12_AD13 |
                      SYS_ALT_MFP_PA13_AD14 | SYS_ALT_MFP_PA14_AD15);
-                         
+
     /* Set multi-function pins for EBI nCS, ALE and MCLK */
     SYS->GPB_MFP &= ~(SYS_GPB_MFP_PB7_Msk | SYS_GPB_MFP_PB6_Msk);
     SYS->ALT_MFP &= ~(SYS_ALT_MFP_PB7_Msk | SYS_ALT_MFP_PB6_Msk);
@@ -207,9 +207,9 @@ int main(void)
     printf("|    EBI NOR Flash Sample Code    |\n");
     printf("+---------------------------------+\n\n");
 
-    printf("***************************************************************************\n");
+    printf("*******************************************************************************\n");
     printf("* Please connect W39L040P to M071R_M071S Series EBI bus before EBI testing !! *\n");
-    printf("***************************************************************************\n\n");
+    printf("*******************************************************************************\n\n");
 
     /* Enable EBI function and bus width to 8-bit, MCLK is HCLK/4 */
     EBI->EBICON = (EBI_MCLKDIV_4 << EBI_EBICON_MCLKDIV_Pos) | EBI_EBICON_ExtEN_Msk |
@@ -226,7 +226,7 @@ int main(void)
     else
     {
         printf("NOR W39L040P initial fail ! (ID:0x%X)\n\n", u32NORIDInfo);
-        while(1);
+        goto lexit;
     }
 
     /* Erase flash */
@@ -237,21 +237,24 @@ int main(void)
         if(u8ReadOutData != 0xFF)
         {
             printf("    >> Chip Erase Fail !! Addr:0x%X, Data:0x%X.\n\n", u32i, u8ReadOutData);
-            while(1);
+            goto lexit;
         }
     }
     printf("    >> Chip Erase OK !!!\n");
 
     /* Start to program NOR flash test */
-    ProgramContinueDataTest();
+    if( ProgramContinueDataTest() == TRUE )
+    {
+        printf("*** NOR Flash Test OK ***\n");
+    }
+
+lexit:
 
     /* Disable EBI function */
     EBI->EBICON &= ~EBI_EBICON_ExtEN_Msk;
 
     /* Disable EBI clock */
     CLK->AHBCLK &= ~CLK_AHBCLK_EBI_EN_Msk;
-
-    printf("*** NOR Flash Test OK ***\n");
 
     while(1);
 }

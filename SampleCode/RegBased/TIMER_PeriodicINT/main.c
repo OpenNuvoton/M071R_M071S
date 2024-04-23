@@ -27,7 +27,7 @@ volatile uint32_t g_au32TMRINTCount[4] = {0};
  *
  * @return      None
  *
- * @details     The Timer0 default IRQ, declared in startup_NUC2201.s.
+ * @details     The Timer0 default IRQ, declared in startup_M071R_M071S.s.
  */
 void TMR0_IRQHandler(void)
 {
@@ -46,7 +46,7 @@ void TMR0_IRQHandler(void)
  *
  * @return      None
  *
- * @details     The Timer1 default IRQ, declared in startup_NUC2201.s.
+ * @details     The Timer1 default IRQ, declared in startup_M071R_M071S.s.
  */
 void TMR1_IRQHandler(void)
 {
@@ -65,7 +65,7 @@ void TMR1_IRQHandler(void)
  *
  * @return      None
  *
- * @details     The Timer2 default IRQ, declared in startup_NUC2201.s.
+ * @details     The Timer2 default IRQ, declared in startup_M071R_M071S.s.
  */
 void TMR2_IRQHandler(void)
 {
@@ -84,7 +84,7 @@ void TMR2_IRQHandler(void)
  *
  * @return      None
  *
- * @details     The Timer3 default IRQ, declared in startup_NUC2201.s.
+ * @details     The Timer3 default IRQ, declared in startup_M071R_M071S.s.
  */
 void TMR3_IRQHandler(void)
 {
@@ -141,7 +141,7 @@ void SYS_Init(void)
                    CLK_CLKSEL1_TMR0_S_HXT | CLK_CLKSEL1_TMR1_S_HCLK | CLK_CLKSEL1_TMR2_S_HIRC | CLK_CLKSEL1_TMR3_S_HXT;
 
     /* Update System Core Clock */
-    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CycylesPerUs automatically. */
+    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CyclesPerUs automatically. */
     SystemCoreClockUpdate();
 
     /*---------------------------------------------------------------------------------------------------------*/
@@ -245,12 +245,14 @@ int main(void)
                     (g_au32TMRINTCount[2] > (g_au32TMRINTCount[0] * 4 + 1)) || (g_au32TMRINTCount[2] < (g_au32TMRINTCount[0] * 4 - 1)) ||
                     (g_au32TMRINTCount[3] > (g_au32TMRINTCount[0] * 8 + 1)) || (g_au32TMRINTCount[3] < (g_au32TMRINTCount[0] * 8 - 1))) {
                 printf("*** FAIL ***\n");
-                while(1);
+                goto lexit;
             }
         }
     }
 
     printf("*** PASS ***\n");
+
+lexit:
 
     while(1);
 }

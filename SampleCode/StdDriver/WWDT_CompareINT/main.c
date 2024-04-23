@@ -27,7 +27,7 @@ volatile uint32_t g_u32WWDTINTCount = 0;
  *
  * @return      None
  *
- * @details     The WDT_IRQHandler is default IRQ of WDT and WWDT, declared in startup_NUC2201.s.
+ * @details     The WDT_IRQHandler is default IRQ of WDT and WWDT, declared in startup_M071R_M071S.s.
  */
 void WDT_IRQHandler(void)
 {

@@ -53,7 +53,7 @@ void SYS_Init(void)
 
 }
 
-void UART0_Init()
+void UART0_Init(void)
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
@@ -68,7 +68,7 @@ void UART0_Init()
 /*---------------------------------------------------------------------------------------------------------*/
 /* MAIN function                                                                                           */
 /*---------------------------------------------------------------------------------------------------------*/
-int main(void)
+int32_t main(void)
 {
     int32_t i32Err;
 
@@ -106,7 +106,7 @@ int main(void)
         i32Err = 1;
     }
 
-    /* Pull PB.2 to High and check PE.1 status */
+    /* Pull PB.2 to High and check PE.5 status */
     PB2 = 1;
     if(PE5 != 1) {
         i32Err = 1;
@@ -118,7 +118,7 @@ int main(void)
         printf("  [OK].\n");
     }
 
-    /* Configure PB.2 and PE.1 to default Quasi-bidirectional mode */
+    /* Configure PB.2 and PE.5 to default Quasi-bidirectional mode */
     GPIO_SetMode(PB, BIT2, GPIO_PMD_QUASI);
     GPIO_SetMode(PE, BIT5, GPIO_PMD_QUASI);
 

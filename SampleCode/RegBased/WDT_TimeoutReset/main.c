@@ -27,7 +27,7 @@ volatile uint8_t g_u8IsWDTTimeoutINT = 0;
  *
  * @return      None
  *
- * @details     The WDT_IRQHandler is default IRQ of WDT and WWDT, declared in startup_NUC2201.s.
+ * @details     The WDT_IRQHandler is default IRQ of WDT and WWDT, declared in startup_M071R_M071S.s.
  */
 void WDT_IRQHandler(void)
 {
@@ -84,7 +84,7 @@ void SYS_Init(void)
     CLK->CLKSEL1 = CLK_CLKSEL1_UART_S_PLL | CLK_CLKSEL1_WDT_S_LIRC;
 
     /* Update System Core Clock */
-    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CycylesPerUs automatically. */
+    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CyclesPerUs automatically. */
     SystemCoreClockUpdate();
 
     /*---------------------------------------------------------------------------------------------------------*/

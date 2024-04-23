@@ -19,10 +19,10 @@
 
 void ProcessHardFault(void);
 
-void ProcessHardFault(void){}
+void ProcessHardFault(void){ while(1); /* Halt here if hard fault occurs. */ }
 
 /*---------------------------------------------------------------------------------------------------------*/
-/* Main Function                                                                                            */
+/* Main Function                                                                                           */
 /*---------------------------------------------------------------------------------------------------------*/
 
 int32_t main()
@@ -30,7 +30,7 @@ int32_t main()
     int8_t item;
 
     /*
-        To enable semihost, user must define "DEBUG_ENABLE_SEMIHOST" constant when build code with M051Series BSP.
+        To enable semihost, user must define "DEBUG_ENABLE_SEMIHOST" constant when building sample code.
         This sample code is used to show how to print message/getchar on IDE debug environment.
         It will echo all input character back on UART #1 of KEIL IDE.
 

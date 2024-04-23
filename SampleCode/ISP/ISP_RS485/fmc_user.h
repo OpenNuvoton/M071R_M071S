@@ -1,3 +1,11 @@
+/***************************************************************************//**
+ * @file     fmc_user.h
+ * @brief    FMC driver header file
+ * @version  0x31
+ *
+ * @copyright SPDX-License-Identifier: Apache-2.0
+ * @copyright Copyright (C) 2018 Nuvoton Technology Corp. All rights reserved.
+ ******************************************************************************/
 #ifndef FMC_USER_H
 #define FMC_USER_H
 
@@ -33,3 +41,4 @@ int FMC_Erase_User(unsigned int u32Addr);
 
 #endif
 
+/*** (C) COPYRIGHT 2019 Nuvoton Technology Corp. ***/

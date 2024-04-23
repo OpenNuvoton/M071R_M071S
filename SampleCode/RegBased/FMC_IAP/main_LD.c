@@ -47,6 +47,7 @@ const uint32_t * __attribute__((section(".ARM.__at_0x00100E00"))) g_funcTable[4]
 #endif
 #endif
 
+void ProcessHardFault(void){ while(1); /* Halt here if hard fault occurs. */ }
 
 void SysTickDelay(uint32_t us)
 {
@@ -70,7 +71,7 @@ void SYS_Init(void)
     /* Waiting for Internal RC clock ready */
     while(!(CLK->CLKSTATUS & CLK_CLKSTATUS_OSC22M_STB_Msk));
 
-    /* Switch HCLK clock source to Internal RC and and HCLK source divide 1 */
+    /* Switch HCLK clock source to Internal RC and HCLK source divide 1 */
     CLK->CLKSEL0 &= ~CLK_CLKSEL0_HCLK_S_Msk;
     CLK->CLKSEL0 |= CLK_CLKSEL0_HCLK_S_HIRC;
     CLK->CLKDIV &= ~CLK_CLKDIV_HCLK_N_Msk;

@@ -20,7 +20,7 @@
  *
  * @return      None
  *
- * @details     The External INT0(PB.14) default IRQ, declared in startup_NUC2201.s.
+ * @details     The External INT0(PB.14) default IRQ, declared in startup_M071R_M071S.s.
  */
 void EINT0_IRQHandler(void)
 {
@@ -37,7 +37,7 @@ void EINT0_IRQHandler(void)
  *
  * @return      None
  *
- * @details     The External INT1(PB.15) default IRQ, declared in startup_NUC2201.s.
+ * @details     The External INT1(PB.15) default IRQ, declared in startup_M071R_M071S.s.
  */
 void EINT1_IRQHandler(void)
 {
@@ -95,7 +95,7 @@ void SYS_Init(void)
     SYS->ALT_MFP2 |= SYS_ALT_MFP2_PB14_INT0 | SYS_ALT_MFP2_PB15_INT1;
 }
 
-void UART0_Init()
+void UART0_Init(void)
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
@@ -110,7 +110,7 @@ void UART0_Init()
 /*---------------------------------------------------------------------------------------------------------*/
 /* MAIN function                                                                                           */
 /*---------------------------------------------------------------------------------------------------------*/
-int main(void)
+int32_t main(void)
 {
     /* Unlock protected registers */
     SYS_UnlockReg();
@@ -144,7 +144,7 @@ int main(void)
     GPIO_EnableEINT1(PB, 15, GPIO_INT_BOTH_EDGE);
     NVIC_EnableIRQ(EINT1_IRQn);
 
-    /* Enable interrupt de-bounce function and select de-bounce sampling cycle time is 1024 * 10 KHz clock */
+    /* Enable interrupt de-bounce function and select de-bounce sampling cycle time is 1024 clocks of LIRC clock */
     GPIO_SET_DEBOUNCE_TIME(GPIO_DBCLKSRC_LIRC, GPIO_DBCLKSEL_1024);
     GPIO_ENABLE_DEBOUNCE(PB, BIT14 | BIT15);
 

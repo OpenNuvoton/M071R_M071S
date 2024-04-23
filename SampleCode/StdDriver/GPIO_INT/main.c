@@ -20,7 +20,7 @@
  *
  * @return      None
  *
- * @details     The PA/PB default IRQ, declared in startup_NUC2201.s.
+ * @details     The PA/PB default IRQ, declared in startup_M071R_M071S.s.
  */
 void GPAB_IRQHandler(void)
 {
@@ -43,7 +43,7 @@ void GPAB_IRQHandler(void)
  *
  * @return      None
  *
- * @details     The PC/PE/PF default IRQ, declared in startup_NUC2201.s.
+ * @details     The PC/PE/PF default IRQ, declared in startup_M071R_M071S.s.
  */
 void GPCDEF_IRQHandler(void)
 {
@@ -115,7 +115,7 @@ void UART0_Init(void)
 /*---------------------------------------------------------------------------------------------------------*/
 /* MAIN function                                                                                           */
 /*---------------------------------------------------------------------------------------------------------*/
-int main(void)
+int32_t main(void)
 {
     /* Unlock protected registers */
     SYS_UnlockReg();
@@ -144,7 +144,7 @@ int main(void)
     GPIO_EnableInt(PB, 3, GPIO_INT_RISING);
     NVIC_EnableIRQ(GPAB_IRQn);
 
-    /*  Configure PE.5 as Quasi-bidirection mode and enable interrupt by falling edge trigger */
+    /* Configure PE.5 as Quasi-bidirection mode and enable interrupt by falling edge trigger */
     GPIO_SetMode(PE, BIT5, GPIO_PMD_QUASI);
     GPIO_EnableInt(PE, 5, GPIO_INT_FALLING);
     NVIC_EnableIRQ(GPCDEF_IRQn);

@@ -27,7 +27,7 @@ volatile uint32_t g_au32TMRINTCount[4] = {0};
  *
  * @return      None
  *
- * @details     The Timer0 default IRQ, declared in startup_NUC2201.s.
+ * @details     The Timer0 default IRQ, declared in startup_M071R_M071S.s.
  */
 void TMR0_IRQHandler(void)
 {
@@ -44,7 +44,7 @@ void TMR0_IRQHandler(void)
  *
  * @return      None
  *
- * @details     The Timer1 default IRQ, declared in startup_NUC2201.s.
+ * @details     The Timer1 default IRQ, declared in startup_M071R_M071S.s.
  */
 void TMR1_IRQHandler(void)
 {
@@ -61,7 +61,7 @@ void TMR1_IRQHandler(void)
  *
  * @return      None
  *
- * @details     The Timer2 default IRQ, declared in startup_NUC2201.s.
+ * @details     The Timer2 default IRQ, declared in startup_M071R_M071S.s.
  */
 void TMR2_IRQHandler(void)
 {
@@ -80,7 +80,7 @@ void TMR2_IRQHandler(void)
  *
  * @return      None
  *
- * @details     The Timer3 default IRQ, declared in startup_NUC2201.s.
+ * @details     The Timer3 default IRQ, declared in startup_M071R_M071S.s.
  */
 void TMR3_IRQHandler(void)
 {
@@ -229,22 +229,24 @@ int main(void)
             if(u32InitCount > 1) {
                 if((au32CAPValus[u32InitCount] - au32CAPValus[u32InitCount - 1]) != 500) {
                     printf("*** FAIL ***\n");
-                    while(1);
+                    goto lexit;
                 }
             }
             u32InitCount = g_au32TMRINTCount[2];
         }
-        
+
         if(u32InitCount == 10)
             break;
     }
+
+    printf("*** PASS ***\n");
+
+lexit:
 
     /* Stop Timer0, Timer2 and Timer3 counting */
     TIMER_Close(TIMER0);
     TIMER_Close(TIMER2);
     TIMER_Close(TIMER3);
-
-    printf("*** PASS ***\n");
 
     while(1);
 }

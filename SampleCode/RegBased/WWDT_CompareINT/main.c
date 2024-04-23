@@ -27,7 +27,7 @@ volatile uint32_t g_u32WWDTINTCount = 0;
  *
  * @return      None
  *
- * @details     The WDT_IRQHandler is default IRQ of WDT and WWDT, declared in startup_NUC2201.s.
+ * @details     The WDT_IRQHandler is default IRQ of WDT and WWDT, declared in startup_M071R_M071S.s.
  */
 void WDT_IRQHandler(void)
 {
@@ -89,7 +89,7 @@ void SYS_Init(void)
     CLK->CLKSEL2 = CLK_CLKSEL2_WWDT_S_HCLK_DIV2048;
 
     /* Update System Core Clock */
-    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CycylesPerUs automatically. */
+    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CyclesPerUs automatically. */
     SystemCoreClockUpdate();
 
     /*---------------------------------------------------------------------------------------------------------*/

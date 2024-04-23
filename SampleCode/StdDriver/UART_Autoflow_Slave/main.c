@@ -27,7 +27,7 @@ volatile int32_t g_i32pointer = 0;
 /* Define functions prototype                                                                              */
 /*---------------------------------------------------------------------------------------------------------*/
 extern char GetChar(void);
-int main(void);
+int32_t main(void);
 void AutoFlow_FunctionRxTest(void);
 
 
@@ -110,7 +110,7 @@ void UART1_Init()
 /* MAIN function                                                                                           */
 /*---------------------------------------------------------------------------------------------------------*/
 
-int main(void)
+int32_t main(void)
 {
 
     /* Unlock protected registers */
@@ -162,7 +162,7 @@ void UART1_IRQHandler(void)
 /*---------------------------------------------------------------------------------------------------------*/
 void AutoFlow_FunctionRxTest()
 {
-    uint32_t u32i;
+    uint32_t u32i, u32Err = 0;
 
     printf("\n");
     printf("+-----------------------------------------------------------+\n");
@@ -183,7 +183,7 @@ void AutoFlow_FunctionRxTest()
     printf("|  Description :                                            |\n");
     printf("|    The sample code needs two boards. One is Master and    |\n");
     printf("|    the other is slave. Master will send 1k bytes data     |\n");
-    printf("|    to slave.Slave will check if received data is correct  |\n");
+    printf("|    to slave. Slave will check if received data is correct |\n");
     printf("|    after getting 1k bytes data.                           |\n");
     printf("|    Press any key to start...                              |\n");
     printf("+-----------------------------------------------------------+\n");
@@ -193,12 +193,10 @@ void AutoFlow_FunctionRxTest()
     UART_EnableFlowCtrl(UART1);
 
     /* Set RTS Trigger Level as 8 bytes */
-    UART1->FCR &= ~UART_FCR_RTS_TRI_LEV_Msk;
-    UART1->FCR |= UART_FCR_RTS_TRI_LEV_8BYTES;
+    UART1->FCR = (UART1->FCR & (~UART_FCR_RTS_TRI_LEV_Msk)) | UART_FCR_RTS_TRI_LEV_8BYTES;
 
     /* Set RX Trigger Level as 8 bytes */
-    UART1->FCR &= ~UART_FCR_RFITL_Msk;
-    UART1->FCR |= UART_FCR_RFITL_8BYTES;
+    UART1->FCR = (UART1->FCR & (~UART_FCR_RFITL_Msk)) | UART_FCR_RFITL_8BYTES;
 
     /* Set Timeout time 0x3E bit-time and time-out counter enable */
     UART_SetTimeoutCnt(UART1, 0x3E);
@@ -214,11 +212,15 @@ void AutoFlow_FunctionRxTest()
     /* Compare Data */
     for(u32i = 0; u32i < RXBUFSIZE; u32i++) {
         if(g_u8RecData[u32i] != (u32i & 0xFF)) {
-            printf("Compare Data Failed\n");
-            while(1);
+            u32Err = 1;
+            break;
         }
     }
-    printf("\n Receive OK & Check OK\n");
+
+    if( u32Err )
+        printf("Compare Data Failed\n");
+    else
+        printf("\n Receive OK & Check OK\n");
 
     /* Disable RDA\RLS\RTO Interrupt */
     UART_DisableInt(UART1, (UART_IER_RDA_IEN_Msk | UART_IER_RLS_IEN_Msk | UART_IER_TOUT_IEN_Msk));
