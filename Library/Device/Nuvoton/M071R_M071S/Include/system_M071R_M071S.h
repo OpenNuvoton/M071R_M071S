@@ -10,8 +10,8 @@
  * Copyright (C) 2014 Nuvoton Technology Corp. All rights reserved.
  *
  ******************************************************************************/
-#ifndef __SYSTEM_NUC2xx_H
-#define __SYSTEM_NUC2xx_H
+#ifndef __SYSTEM_M071R_M071S_H
+#define __SYSTEM_M071R_M071S_H
 
 #ifdef __cplusplus
 extern "C" {
